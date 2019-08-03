@@ -1,0 +1,111 @@
+﻿    <!-- Left panel : Navigation area -->
+<!-- Note: This width of the aside area can be adjusted through LESS variables -->
+<aside id="left-panel">
+
+   <!-- User info -->
+   @{ Html.RenderPartial("_CurrentUser"); }
+   <!-- end user info -->
+   <!-- NAVIGATION : This navigation is also responsive
+
+   To make this navigation dynamic please make sure to link the node
+   (the reference to the nav > ul) after page load. Or the navigation
+   will not initialize.
+   -->
+   <nav>
+      <!-- NOTE: Notice the gaps after each icon usage <i></i>..
+      Please note that these links work a bit different than
+      traditional href="" links. See documentation for details.
+      -->
+
+      <ul>
+         <li class="@Html.RouteIf("mantenimientos", "active")">
+            <a href="#"><i class="fa fa-lg fa-fw fa-pencil-square-o"></i> <span class="menu-item-parent">Mantenimientos</span></a>
+            <ul>
+               <li class="@Html.RouteIf("paises", "active")">
+                  <a href="@Url.Action("paisessearch", "paises")" title="Paises"><span class="menu-item-parent">Paises</span></a>
+               </li>
+               <li class="@Html.RouteIf("ubigeos", "active")">
+                  <a href="@Url.Action("ubigeossearch", "ubigeos")" title="Ubigeos"><span class="menu-item-parent">Ubigeos</span></a>
+               </li>
+               <li class="@Html.RouteIf("roles", "active")">
+                  <a href="@Url.Action("rolessearch", "roles")" title="Roles"><span class="menu-item-parent">Roles</span></a>
+               </li>
+               <li class="@Html.RouteIf("empresas", "active")">
+                  <a href="@Url.Action("empresassearch", "empresas")" title="Empresas"><span class="menu-item-parent">Empresas</span></a>
+               </li>
+               <li class="@Html.RouteIf("usuarios", "active")">
+                  <a href="@Url.Action("usuariossearch", "usuarios")" title="Usuarios"><span class="menu-item-parent">Usuarios</span></a>
+               </li>
+               <li class="@Html.RouteIf("tablas", "active")">
+                  <a href="@Url.Action("tablassearch", "tablas")" title="Tablas"><span class="menu-item-parent">Tablas</span></a>
+               </li>
+               <li class="@Html.RouteIf("sucursales", "active")">
+                  <a href="@Url.Action("sucursalessearch", "sucursales")" title="Sucursales"><span class="menu-item-parent">Sucursales</span></a>
+               </li>
+               <li class="@Html.RouteIf("parametros", "active")">
+                  <a href="@Url.Action("parametrossearch", "parametros")" title="Parametros"><span class="menu-item-parent">Parametros</span></a>
+               </li>
+               <li class="@Html.RouteIf("configuraciones", "active")">
+                  <a href="@Url.Action("configuracionessearch", "configuraciones")" title="Configuraciones"><span class="menu-item-parent">Configuraciones</span></a>
+               </li>
+               <li class="@Html.RouteIf("entidades", "active")">
+                  <a href="@Url.Action("entidadessearch", "entidades")" title="Entidades"><span class="menu-item-parent">Entidades</span></a>
+               </li>
+               <li class="@Html.RouteIf("habitaciones", "active")">
+                  <a href="@Url.Action("habitacionessearch", "habitaciones")" title="Habitaciones"><span class="menu-item-parent">Habitaciones</span></a>
+               </li>
+               <li class="@Html.RouteIf("turnos", "active")">
+                  <a href="@Url.Action("turnossearch", "turnos")" title="Turnos"><span class="menu-item-parent">Turnos</span></a>
+               </li>
+            </ul>
+         </li>
+         <li class="@Html.RouteIf("procesos", "active")">
+            <a href="#"><i class="fa fa-lg fa-fw fa-puzzle-piece"></i> <span class="menu-item-parent">Procesos</span></a>
+            <ul>
+               <li class="@Html.RouteIf("reservaciones", "active")">
+                  <a href="@Url.Action("reservacionessearch", "reservaciones")" title="Reservaciones"><span class="menu-item-parent">Reservaciones</span></a>
+               </li>
+               <li class="@Html.RouteIf("registros", "active")">
+                  <a href="@Url.Action("registrossearch", "registros")" title="Registros"><span class="menu-item-parent">Registros</span></a>
+               </li>
+               <li class="@Html.RouteIf("limpieza", "active")">
+                  <a href="@Url.Action("limpiezasearch", "limpieza")" title="Limpieza"><span class="menu-item-parent">Limpieza</span></a>
+               </li>
+               <li class="@Html.RouteIf("cierres", "active")">
+                  <a href="@Url.Action("cierressearch", "cierres")" title="Cierres"><span class="menu-item-parent">Cierres</span></a>
+               </li>
+               <li class="@Html.RouteIf("retiros", "active")">
+                  <a href="@Url.Action("retirossearch", "retiros")" title="Retiros"><span class="menu-item-parent">Retiros</span></a>
+               </li>
+            </ul>
+         </li>
+         <li class="@Html.RouteIf("indicadores", "active")">
+            <a href="#"><i class="fa fa-lg fa-fw fa-bar-chart-o"></i> <span class="menu-item-parent">Indicadores</span></a>
+            <ul>
+               <li class="@Html.RouteIf("indicadoresanuales", "active")">
+                  <a href="@Url.Action("indicadoresanualessearch", "indicadoresanuales")" title="Indicador Anual"><span class="menu-item-parent">Anual</span></a>
+               </li>
+               <li class="@Html.RouteIf("indicadoresmensuales", "active")">
+                  <a href="@Url.Action("indicadoresmensualessearch", "indicadoresmensuales")" title="Indicador Mensual"><span class="menu-item-parent">Mensual</span></a>
+               </li>
+               <li class="@Html.RouteIf("indicadoressemanales", "active")">
+                  <a href="@Url.Action("indicadoressemanalessearch", "indicadoressemanales")" title="Indicador Semanal"><span class="menu-item-parent">Semanal</span></a>
+               </li>
+            </ul>
+         </li>
+         <li class="@Html.RouteIf("reportes", "active")">
+            <a href="#"><i class="fa fa-lg fa-fw fa-table"></i> <span class="menu-item-parent">Reportes</span></a>
+            <ul>
+               <li class="@Html.RouteIf("indicadoresanuales", "active")">
+                  <a href="@Url.Action("indicadoresanualessearch", "indicadoresanuales")" title="Indicador Anual"><span class="menu-item-parent">Indicador Anual</span></a>
+               </li>
+            </ul>
+         </li>
+      </ul>
+   </nav>
+   <span class="minifyme" data-action="minifyMenu">
+      <i class="fa fa-arrow-circle-left hit"></i>
+   </span>
+
+</aside>
+<!-- END NAVIGATION -->

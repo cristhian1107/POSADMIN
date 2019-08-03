@@ -1,0 +1,151 @@
+﻿@model Posadmin.Models.RegistrosModel
+<div id="content">
+   <section id="widget-grid" class="">
+      <div class="row">
+
+         <!-- NEW COL START -->
+         <article class="col-sm-12 col-md-12 col-lg-12">
+
+            <!-- Widget ID (each widget will need unique ID)-->
+            <div class="jarviswidget jarviswidget-color-darken" id="wid-id-3"
+                 data-widget-editbutton="false"
+                 data-widget-deletebutton="false"
+                 data-widget-colorbutton="false"
+                 data-widget-fullscreenbutton="false"
+                 data-widget-collapsed="false"
+                 data-widget-sortable="false">
+
+               <header>
+                  <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
+                  <h2>Pagos</h2>
+
+               </header>
+
+               <!-- widget div-->
+               <div>
+
+                  <!-- widget edit box -->
+                  <div class="jarviswidget-editbox">
+                     <!-- This area used as dropdown edit box -->
+
+                  </div>
+                  <!-- end widget edit box -->
+                  <!-- widget content -->
+                  <div class="widget-body no-padding">
+                     @foreach (KeyValuePair<string, ModelState> keyValuePair in ViewData.ModelState)
+                     {
+                        if (String.IsNullOrEmpty(keyValuePair.Key))
+                        {
+                           foreach (ModelError modelError in keyValuePair.Value.Errors)
+                           {
+                           <div class="alert adjusted alert-warning fade in">
+                              <button class="close" data-dismiss="alert">
+                                 ×
+                              </button>
+                              <i class="fa fa-fw fa-lg fa-exclamation-triangle"></i>
+                              <strong>¡Oh No!</strong> <br />
+
+                              @Html.Raw(HttpUtility.HtmlDecode(modelError.ErrorMessage))
+                              <br />
+                           </div>
+                           }
+                        }
+                     }
+
+                     @using (Html.BeginForm("PagoRegistrosRegister", "Registros", FormMethod.Post, new { @id = "pagoregistros-search", @name = "pagoregistros-search", @class = "smart-form", @novalidate = "novalidate" }))
+                     {
+                     @Html.AntiForgeryToken()
+                     <header>
+                        @if (Model.Pago.Instance == SoftwareFactory.Infrastructure.BusinessEntity.InstanceEntity.Added)
+                        {<label>Ingresar Tablas</label>}
+                        else
+                        {<label>Editar Tablas</label>}
+                     </header>
+                     <fieldset>
+                        <section class="hidden">
+                           @Html.HiddenFor(model => Model.Pago.Instance)
+                           @Html.HiddenFor(model => Model.Pago.EMPR_Interno)
+                           @Html.HiddenFor(model => Model.Pago.SUCU_Interno)
+                           @Html.HiddenFor(model => Model.Pago.REGI_Interno)
+                           @Html.HiddenFor(model => Model.Pago.PAGO_FechaHoraRegistro)
+                           @Html.HiddenFor(model => Model.Pago.USUA_Interno)
+                        </section>
+                        <div class="row">
+                           <section class="col col-3">
+                              @Html.LabelFor(model => model.Pago.PAGO_Tipo, new { @class = "label" })
+                              @{var l_tipoPago = Model.Pago.PAGO_Tipo;}
+                              <input type="hidden" id="HiddenTipoPago" value=@l_tipoPago />
+                              <label class="select">
+                                 @Html.DropDownListFor(model => model.Pago.PAGO_Tipo, new SelectList(string.Empty, "Value", "Text"), " < Seleccione Tipo > ", new { @id = "PAGO_Tipo" })
+                                 <b class="tooltip tooltip-top-right"><i class="fa fa-info-circle txt-color-teal"></i> Seleccione una tabla</b>
+                              </label>
+                              <div class="note note-error" style="font-style: normal; font-size: 11px; line-height: 15px; color: #D56161;">@Html.ValidationMessage("PAGO_Tipo")</div>
+                           </section>
+                           <section class="col col-3">
+                              @Html.LabelFor(model => model.Pago.PAGO_FechaRegistro, new { @class = "label" })
+                              <label class="input">
+                                 @Html.HiddenFor(model => Model.Pago.PAGO_FechaRegistro)
+                                 @Html.EditorFor(model => model.Pago.PAGO_FechaRegistro, new { htmlAttributes = new { @class = "", type = "date", name = "PAGO_FechaRegistro", @disabled = "disabled" } })
+                                 <b class="tooltip tooltip-top-right"><i class="fa fa-info-circle txt-color-teal"></i>Ingrese una fecha de registro</b>
+                              </label>
+                              <div class="note note-error" style="font-style: normal; font-size: 11px; line-height: 15px; color: #D56161;">@Html.ValidationMessage("PAGO_FechaHoraRegistro")</div>
+                           </section>
+                           <section class="col col-2">
+                              @Html.LabelFor(model => model.Pago.PAGO_HoraRegistro, new { @class = "label" })
+                              <label class="input">
+                                 @Html.HiddenFor(model => Model.Pago.PAGO_HoraRegistro)
+                                 @Html.EditorFor(model => model.Pago.PAGO_HoraRegistro, new { htmlAttributes = new { @class = "", type = "time", name = "PAGO_HoraRegistro", @disabled = "disabled" } })
+                                 <b class="tooltip tooltip-top-right"><i class="fa fa-info-circle txt-color-teal"></i>Ingrese una hora de registro</b>
+                              </label>
+                              <div class="note note-error" style="font-style: normal; font-size: 11px; line-height: 15px; color: #D56161;">@Html.ValidationMessage("PAGO_FechaHoraRegistro")</div>
+                           </section>
+                           <section class="col col-4">
+                              @Html.LabelFor(model => model.Pago.PAGO_MontoCancelado, new { @class = "label" })
+                              <label class="input">
+                                 @Html.EditorFor(model => model.Pago.PAGO_MontoCancelado, new { htmlAttributes = new { @class = "", style = "text-align:right;", type = "number", name = "PAGO_MontoCancelado" } })
+                                 <b class="tooltip tooltip-top-right"><i class="fa fa-info-circle txt-color-teal"></i>Ingrese un monto</b>
+                              </label>
+                              <div class="note note-error" style="font-style: normal; font-size: 11px; line-height: 15px; color: #D56161;">@Html.ValidationMessage("PAGO_MontoCancelado")</div>
+                           </section>
+                        </div>
+                     </fieldset>
+                     <footer>
+                        <a href='@Url.Action("RegistrosRegister", "Registros", new { Detalle = true })' class="btn btn-labeled btn-default" title="Volver" style="padding-left:10px; padding-right:10px;">
+                           <span class="btn-label" style="padding-bottom:0px; padding-top:0px;"><i class="fa fa-undo"></i></span>
+                           Volver
+                        </a>
+                        <button type="submit" class="btn btn-labeled btn-primary" title="Guardar" style="padding-left:10px; padding-right:10px;">
+                           <span class="btn-label" style="padding-bottom:0px; padding-top:0px;"><i class="fa fa-save"></i></span>
+                           Guardar
+                        </button>
+                     </footer>
+                                }
+                  </div>
+
+                  <!-- end widget content -->
+
+               </div>
+               <!-- end widget div -->
+
+            </div>
+            <!-- end widget -->
+
+         </article>
+         <!-- END COL -->
+      </div>
+   </section>
+</div>
+
+@section pagespecific {
+   <script type="text/javascript">
+
+      // DO NOT REMOVE : GLOBAL FUNCTIONS!
+
+      $(document).ready(function () {
+         var l_tipopago = document.getElementById("HiddenTipoPago").value;
+         renderComboTiposPago($('#PAGO_Tipo'), l_tipopago);
+      });
+
+
+   </script>
+}

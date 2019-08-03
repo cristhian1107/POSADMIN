@@ -1,0 +1,49 @@
+﻿    <!-- HEADER -->
+<header id="header">
+
+
+
+   @if (Request.IsAuthenticated)
+   {
+   <div id="logo-group">
+      <!-- PLACE YOUR LOGO HERE -->
+      <span id="logo"> <img src="~/content/img/logo.png" alt="Posadmin"> </span>
+      <!-- END LOGO PLACEHOLDER -->
+   </div>
+   }
+   else
+   {
+   <div id="logo-group" style="background-color:transparent;">
+      <!-- PLACE YOUR LOGO HERE -->
+      <span id="logo"> <img src="~/content/img/logo.png" alt="Posadmin"></span>
+      <!-- END LOGO PLACEHOLDER -->
+   </div>
+   }
+   @if (Request.IsAuthenticated)
+   {
+    <!-- projects dropdown -->
+   <div class="project-context hidden-xs">
+
+      <span class="label"><strong>Empresa:</strong></span>
+      @{
+        var Empresa = (Session[Constantes.SessionUsuario] as Posadmin.BusinessEntities.Usuarios).USUA_NombreEmpresa;
+      }
+      <span class="project-selector"><strong> @Empresa</strong></span>
+
+   </div>
+   <section id="top-right">
+      @if (@Model is HelperResult)
+        {
+      @Model
+      }
+      else
+      {
+      <div class="pull-right">
+         @Html.Partial("_TopRight")
+      </div>
+      }
+   </section>
+    <!-- end projects dropdown -->
+   }
+</header>
+<!-- END HEADER -->

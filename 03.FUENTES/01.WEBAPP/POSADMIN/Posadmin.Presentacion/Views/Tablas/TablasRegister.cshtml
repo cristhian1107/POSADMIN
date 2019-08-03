@@ -1,0 +1,227 @@
+﻿@model Posadmin.Models.TablasModel
+<div id="content">
+   <section id="widget-grid" class="">
+      <div class="row">
+
+         <!-- NEW COL START -->
+         <article class="col-sm-12 col-md-12 col-lg-12">
+
+            <!-- Widget ID (each widget will need unique ID)-->
+            <div class="jarviswidget jarviswidget-color-darken" id="wid-id-3"
+                 data-widget-editbutton="false"
+                 data-widget-deletebutton="false"
+                 data-widget-colorbutton="false"
+                 data-widget-fullscreenbutton="false"
+                 data-widget-collapsed="false"
+                 data-widget-sortable="false">
+
+               <header>
+                  <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
+                  <h2>Tablas</h2>
+
+               </header>
+
+               <!-- widget div-->
+               <div>
+
+                  <!-- widget edit box -->
+                  <div class="jarviswidget-editbox">
+                     <!-- This area used as dropdown edit box -->
+
+                  </div>
+                  <!-- end widget edit box -->
+                  <!-- widget content -->
+                  <div class="widget-body no-padding">
+                     @foreach (KeyValuePair<string, ModelState> keyValuePair in ViewData.ModelState)
+                     {
+                        if (String.IsNullOrEmpty(keyValuePair.Key))
+                        {
+                           foreach (ModelError modelError in keyValuePair.Value.Errors)
+                           {
+                           <div class="alert adjusted alert-warning fade in">
+                              <button class="close" data-dismiss="alert">
+                                 ×
+                              </button>
+                              <i class="fa fa-fw fa-lg fa-exclamation-triangle"></i>
+                              <strong>¡Oh No!</strong> <br />
+
+                              @Html.Raw(HttpUtility.HtmlDecode(modelError.ErrorMessage))
+                              <br />
+                           </div>
+                           }
+                        }
+                     }
+
+                     @using (Html.BeginForm("TablasRegister", "Tablas", FormMethod.Post, new { @id = "tablas-search", @name = "tablas-search", @class = "smart-form", @novalidate = "novalidate" }))
+                     {
+                     @Html.AntiForgeryToken()
+                     <header>
+                        @if (Model.Item.Instance == SoftwareFactory.Infrastructure.BusinessEntity.InstanceEntity.Added)
+                        {<label>Ingresar Tablas</label>}
+                        else
+                        {<label>Editar Tablas</label>}
+                     </header>
+                     <fieldset>
+                        <section class="hidden">
+                           @Html.HiddenFor(model => Model.Item.Instance)
+                           @Html.HiddenFor(model => Model.Item.EMPR_Interno)
+                           @Html.HiddenFor(model => Model.Item.TABL_Interno)
+                        </section>
+                        <div class="row">
+                           <section class="col col-4">
+                              @Html.LabelFor(model => model.Item.TABL_Tabla, new { @class = "label" })
+                              @{var l_valueTabla = Model.Item.TABL_Tabla;}
+                              <input type="hidden" id="HiddenCodigoTabla" value=@l_valueTabla />
+                              @if (Model.Item.Instance == SoftwareFactory.Infrastructure.BusinessEntity.InstanceEntity.Added)
+                              {
+                              <label class="select">
+                                 @Html.DropDownListFor(model => model.Item.TABL_Tabla, new SelectList(string.Empty, "Value", "Text"), " < Seleccione Tabla > ", new { @id = "TABL_Tabla" })
+                                 <b class="tooltip tooltip-top-right"><i class="fa fa-info-circle txt-color-teal"></i> Seleccione una tabla</b>
+                              </label>
+                              }
+                              else
+                              {
+                              <label class="select">
+                                 @Html.HiddenFor(model => Model.Item.TABL_Tabla)
+                                 @Html.DropDownListFor(model => model.Item.TABL_Tabla, new SelectList(string.Empty, "Value", "Text"), " < Seleccione Tabla > ", new { @id = "TABL_Tabla", @disabled = "disabled" })
+                                 <b class="tooltip tooltip-top-right"><i class="fa fa-info-circle txt-color-teal"></i> Seleccione una tabla</b>
+                              </label>
+                              }
+                              <div class="note note-error" style="font-style: normal; font-size: 11px; line-height: 15px; color: #D56161;">@Html.ValidationMessage("TABL_Tabla")</div>
+                           </section>
+                           <section class="col col-6">
+                              @Html.LabelFor(model => model.Item.TABL_Nombre, new { @class = "label" })
+                              <label class="input">
+                                 @Html.EditorFor(model => model.Item.TABL_Nombre, new { htmlAttributes = new { @class = "", type = "text", name = "TABL_Nombre", autocomplete = "off" } })
+                                 <b class="tooltip tooltip-top-right"><i class="fa fa-info-circle txt-color-teal"></i>Ingrese un nombre</b>
+                              </label>
+                              <div class="note note-error" style="font-style: normal; font-size: 11px; line-height: 15px; color: #D56161;">@Html.ValidationMessage("TABL_Nombre")</div>
+                           </section>
+                           <section class="col col-2" style="min-height:57px; margin-bottom:0px;">
+                              @Html.LabelFor(model => model.Item.TABL_Activo, new { @class = "label" })
+                              <label class="checkbox">
+                                 @Html.EditorFor(model => model.Item.TABL_Activo, new { htmlAttributes = new { @class = "", type = "checkbox", name = "TABL_Activo" } })
+                                 <i></i>
+                              </label>
+                              <div class="note note-error" style="font-style: normal; font-size: 11px; line-height: 15px; color: #D56161;">@Html.ValidationMessage("TABL_Activo")</div>
+                           </section>
+                        </div>
+                        <div class="row">
+                           <section class="col col-4">
+                              @Html.LabelFor(model => model.Item.TABL_Nomenclatura, new { @class = "label" })
+                              <label class="input">
+                                 @Html.EditorFor(model => model.Item.TABL_Nomenclatura, new { htmlAttributes = new { @class = "", type = "text", name = "TABL_Nomenclatura", autocomplete = "off" } })
+                                 <b class="tooltip tooltip-top-right"><i class="fa fa-info-circle txt-color-teal"></i>Ingrese una nomenclatura</b>
+                              </label>
+                              <div class="note note-error" style="font-style: normal; font-size: 11px; line-height: 15px; color: #D56161;">@Html.ValidationMessage("TABL_Nomenclatura")</div>
+                           </section>
+                           <section class="col col-8">
+                              @Html.LabelFor(model => model.Item.TABL_Descripcion, new { @class = "label" })
+                              <label class="input">
+                                 @Html.EditorFor(model => model.Item.TABL_Descripcion, new { htmlAttributes = new { @class = "", type = "text", name = "TABL_Descripcion", autocomplete = "off" } })
+                                 <b class="tooltip tooltip-top-right"><i class="fa fa-info-circle txt-color-teal"></i>Ingrese una descripcion</b>
+                              </label>
+                              <div class="note note-error" style="font-style: normal; font-size: 11px; line-height: 15px; color: #D56161;">@Html.ValidationMessage("TABL_Descripcion")</div>
+                           </section>
+                        </div>
+                        <div class="row">
+                           <section class="col col-3">
+                              @Html.LabelFor(model => model.Item.TABL_CodigoInternacional, new { @class = "label" })
+                              <label class="input">
+                                 @Html.EditorFor(model => model.Item.TABL_CodigoInternacional, new { htmlAttributes = new { @class = "", type = "text", name = "TABL_CodigoInternacional", autocomplete = "off" } })
+                                 <b class="tooltip tooltip-top-right"><i class="fa fa-info-circle txt-color-teal"></i>Ingrese un cod. internacional</b>
+                              </label>
+                              <div class="note note-error" style="font-style: normal; font-size: 11px; line-height: 15px; color: #D56161;">@Html.ValidationMessage("TABL_CodigoInternacional")</div>
+                           </section>
+                           <section class="col col-3">
+                              @Html.LabelFor(model => model.Item.TABL_Codigo1, new { @class = "label" })
+                              <label class="input">
+                                 @Html.EditorFor(model => model.Item.TABL_Codigo1, new { htmlAttributes = new { @class = "", type = "text", name = "TABL_Codigo1", autocomplete = "off" } })
+                                 <b class="tooltip tooltip-top-right"><i class="fa fa-info-circle txt-color-teal"></i>Ingrese un codigo</b>
+                              </label>
+                              <div class="note note-error" style="font-style: normal; font-size: 11px; line-height: 15px; color: #D56161;">@Html.ValidationMessage("TABL_Codigo1")</div>
+                           </section>
+                           <section class="col col-3">
+                              @Html.LabelFor(model => model.Item.TABL_Codigo2, new { @class = "label" })
+                              <label class="input">
+                                 @Html.EditorFor(model => model.Item.TABL_Codigo2, new { htmlAttributes = new { @class = "", type = "text", name = "TABL_Codigo2", autocomplete = "off" } })
+                                 <b class="tooltip tooltip-top-right"><i class="fa fa-info-circle txt-color-teal"></i>Ingrese un codigo</b>
+                              </label>
+                              <div class="note note-error" style="font-style: normal; font-size: 11px; line-height: 15px; color: #D56161;">@Html.ValidationMessage("TABL_Codigo2")</div>
+                           </section>
+                           <section class="col col-3">
+                              @Html.LabelFor(model => model.Item.TABL_Codigo3, new { @class = "label" })
+                              <label class="input">
+                                 @Html.EditorFor(model => model.Item.TABL_Codigo3, new { htmlAttributes = new { @class = "", type = "text", name = "TABL_Codigo3", autocomplete = "off" } })
+                                 <b class="tooltip tooltip-top-right"><i class="fa fa-info-circle txt-color-teal"></i>Ingrese un codigo</b>
+                              </label>
+                              <div class="note note-error" style="font-style: normal; font-size: 11px; line-height: 15px; color: #D56161;">@Html.ValidationMessage("TABL_Codigo3")</div>
+                           </section>
+                        </div>
+                        <div class="row">
+                           <section class="col col-4">
+                              @Html.LabelFor(model => model.Item.TABL_Numero1, new { @class = "label" })
+                              <label class="input">
+                                 @Html.EditorFor(model => model.Item.TABL_Numero1, new { htmlAttributes = new { @class = "", style = "text-align:right;", type = "number", name = "TABL_Numero1" } })
+                                 <b class="tooltip tooltip-top-right"><i class="fa fa-info-circle txt-color-teal"></i>Ingrese un numero</b>
+                              </label>
+                              <div class="note note-error" style="font-style: normal; font-size: 11px; line-height: 15px; color: #D56161;">@Html.ValidationMessage("TABL_Numero1")</div>
+                           </section>
+                           <section class="col col-4">
+                              @Html.LabelFor(model => model.Item.TABL_Numero2, new { @class = "label" })
+                              <label class="input">
+                                 @Html.EditorFor(model => model.Item.TABL_Numero2, new { htmlAttributes = new { @class = "", style = "text-align:right;", type = "number", name = "TABL_Numero2" } })
+                                 <b class="tooltip tooltip-top-right"><i class="fa fa-info-circle txt-color-teal"></i>Ingrese un numero</b>
+                              </label>
+                              <div class="note note-error" style="font-style: normal; font-size: 11px; line-height: 15px; color: #D56161;">@Html.ValidationMessage("TABL_Numero2")</div>
+                           </section>
+                           <section class="col col-4">
+                              @Html.LabelFor(model => model.Item.TABL_Numero3, new { @class = "label" })
+                              <label class="input">
+                                 @Html.EditorFor(model => model.Item.TABL_Numero3, new { htmlAttributes = new { @class = "", style = "text-align:right;", type = "number", name = "TABL_Numero3" } })
+                                 <b class="tooltip tooltip-top-right"><i class="fa fa-info-circle txt-color-teal"></i>Ingrese un numero</b>
+                              </label>
+                              <div class="note note-error" style="font-style: normal; font-size: 11px; line-height: 15px; color: #D56161;">@Html.ValidationMessage("TABL_Numero3")</div>
+                           </section>
+                        </div>
+                     </fieldset>
+                     <footer>
+                        <a href='@Url.Action("TablasSearch", "Tablas")' class="btn btn-labeled btn-default" title="Volver" style="padding-left:10px; padding-right:10px;">
+                           <span class="btn-label" style="padding-bottom:0px; padding-top:0px;"><i class="fa fa-undo"></i></span>
+                           Volver
+                        </a>
+                        <button type="submit" class="btn btn-labeled btn-primary" title="Guardar" style="padding-left:10px; padding-right:10px;">
+                           <span class="btn-label" style="padding-bottom:0px; padding-top:0px;"><i class="fa fa-save"></i></span>
+                           Guardar
+                        </button>
+                     </footer>
+                                }
+                  </div>
+
+                  <!-- end widget content -->
+
+               </div>
+               <!-- end widget div -->
+
+            </div>
+            <!-- end widget -->
+
+         </article>
+         <!-- END COL -->
+      </div>
+   </section>
+</div>
+
+@section pagespecific {
+   <script type="text/javascript">
+
+      // DO NOT REMOVE : GLOBAL FUNCTIONS!
+
+      $(document).ready(function () {
+         var l_tabla = document.getElementById("HiddenCodigoTabla").value;
+         renderComboTablas($('#TABL_Tabla'), 'Tabla', @Model.Item.EMPR_Interno,'TAB', l_tabla );
+      });
+
+
+   </script>
+}

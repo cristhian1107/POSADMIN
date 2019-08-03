@@ -1,0 +1,264 @@
+﻿@model Posadmin.Models.CierresModel
+<div id="content">
+   <section id="widget-grid" class="">
+      <div class="row">
+
+         <!-- NEW COL START -->
+         <article class="col-sm-12 col-md-12 col-lg-12">
+
+            @if (Model.ItemsCierres != null && Model.ItemsCierres.Count > 0)
+            {
+            <!-- Widget ID (each widget will need unique ID)-->
+            <div class="jarviswidget jarviswidget-color-darken" id="wid-id-1"
+                 data-widget-editbutton="false"
+                 data-widget-deletebutton="false"
+                 data-widget-colorbutton="false"
+                 data-widget-fullscreenbutton="false"
+                 data-widget-collapsed="false"
+                 data-widget-sortable="false">
+
+               <header>
+                  <span class="widget-icon"> <i class="fa fa-table"></i> </span>
+                  <h2>Ultimos 5 Cierres</h2>
+
+               </header>
+
+               <!-- widget div-->
+               <div>
+
+                  <!-- widget edit box -->
+                  <div class="jarviswidget-editbox">
+                     <!-- This area used as dropdown edit box -->
+
+                  </div>
+                  <!-- end widget edit box -->
+                  <!-- widget content -->
+                  <div class="widget-body no-padding">
+                     @foreach (KeyValuePair<string, ModelState> keyValuePair in ViewData.ModelState)
+                     {
+                        if (String.IsNullOrEmpty(keyValuePair.Key))
+                        {
+                           foreach (ModelError modelError in keyValuePair.Value.Errors)
+                           {
+                           <div class="alert adjusted alert-warning fade in">
+                              <button class="close" data-dismiss="alert">
+                                 ×
+                              </button>
+                              <i class="fa fa-fw fa-lg fa-exclamation-triangle"></i>
+                              <strong>¡Oh No!</strong> <br />
+
+                              @Html.Raw(HttpUtility.HtmlDecode(modelError.ErrorMessage))
+                              <br />
+                           </div>
+                           }
+                        }
+                     }
+                     <div class="table-responsive">
+                        <table class="table table-hover">
+                           <thead>
+                              <tr>
+                                 <th class="text-center">Fecha Cierre</th>
+                                 <th class="text-center">Usuario</th>
+                                 <th class="text-center">Monto Real</th>
+                                 <th class="text-center">Monto Extra</th>
+                                 <th class="text-center">Monto Demas</th>
+                                 <th class="text-center">Total</th>
+                                 <th class="text-center">Monto Deuda</th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              @foreach (var cierre in Model.ItemsCierres)
+                              {
+                              <tr>
+                                 <td>
+                                    <div style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">
+                                       @{ String sDisplayFecha = String.Format("{0:dd/MM/yyyy HH:mm}", cierre.CIER_FechaHoraRegistro); }
+                                       @sDisplayFecha
+                                    </div>
+                                 </td>
+                                 <td>
+                                    <div style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">
+                                       @Html.DisplayFor(modelItem => cierre.CIER_NombreUsuario)
+                                    </div>
+                                 </td>
+                                 <td>
+                                    <div style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">
+                                       @{ String sDisplayReal = String.Format("{0:##,##0.00}", cierre.CIER_MontoReal); }
+                                       @sDisplayReal
+                                    </div>
+                                 </td>
+                                 <td>
+                                    <div style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">
+                                       @{ String sDisplayExtra = String.Format("{0:##,##0.00}", cierre.CIER_MontoExtra); }
+                                       @sDisplayExtra
+                                    </div>
+                                 </td>
+                                 <td>
+                                    <div style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">
+                                       @{ String sDisplayDemas = String.Format("{0:##,##0.00}", cierre.CIER_MontoDemas); }
+                                       @sDisplayDemas
+                                    </div>
+                                 </td>
+                                 <td class="success">
+                                    <div style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">
+                                       @{ String sDisplayTotal = String.Format("{0:##,##0.00}", cierre.CIER_Total); }
+                                       @sDisplayTotal
+                                    </div>
+                                 </td>
+                                 <td>
+                                    <div style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">
+                                       @{ String sDisplayDeuda = String.Format("{0:##,##0.00}", cierre.CIER_MontoDeuda); }
+                                       @sDisplayDeuda
+                                    </div>
+                                 </td>
+                              </tr>
+                                         }
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+
+                  <!-- end widget content -->
+
+               </div>
+               <!-- end widget div -->
+
+            </div>
+            <!-- end widget -->
+                                         }
+            <!-- Widget ID (each widget will need unique ID)-->
+            <div class="jarviswidget jarviswidget-color-darken" id="wid-id-2"
+                 data-widget-editbutton="false"
+                 data-widget-deletebutton="false"
+                 data-widget-colorbutton="false"
+                 data-widget-fullscreenbutton="false"
+                 data-widget-collapsed="false"
+                 data-widget-sortable="false">
+
+               <header>
+                  <span class="widget-icon"> <i class="fa fa-table"></i> </span>
+                  <h2>Historial de Pagos</h2>
+
+               </header>
+
+               <!-- widget div-->
+               <div>
+
+                  <!-- widget edit box -->
+                  <div class="jarviswidget-editbox">
+                     <!-- This area used as dropdown edit box -->
+
+                  </div>
+                  <!-- end widget edit box -->
+                  <!-- widget content -->
+                  <div class="widget-body no-padding">
+                     @foreach (KeyValuePair<string, ModelState> keyValuePair in ViewData.ModelState)
+                     {
+                        if (String.IsNullOrEmpty(keyValuePair.Key) || keyValuePair.Key.Equals("Pago"))
+                        {
+                           foreach (ModelError modelError in keyValuePair.Value.Errors)
+                           {
+                           <div class="alert adjusted alert-warning fade in">
+                              <button class="close" data-dismiss="alert">
+                                 ×
+                              </button>
+                              <i class="fa fa-fw fa-lg fa-exclamation-triangle"></i>
+                              <strong>¡Oh No!</strong> <br />
+
+                              @Html.Raw(HttpUtility.HtmlDecode(modelError.ErrorMessage))
+                              <br />
+                           </div>
+                           }
+                        }
+                     }
+                     <div class="table-responsive">
+                        <table class="table table-hover">
+                           <thead>
+                              <tr>
+                                 <th class="text-center">Fecha y Hora</th>
+                                 <th class="text-center">Habitacion</th>
+                                 <th class="text-center">Tipo Movimiento</th>
+                                 <th class="text-center">Monto</th>
+                              </tr>
+                           </thead>
+                           @if (Model.ItemsPagos != null && Model.ItemsPagos.Count > 0)
+                           {
+                           <tbody>
+                              @foreach (var pago in Model.ItemsPagos)
+                              {
+                              <tr class="@pago.PAGO_TipoColor">
+                                 <td>
+                                    <div style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">
+                                       @{ String sDisplayFechaPago = String.Format("{0:dd/MM/yyyy HH:mm}", pago.PAGO_FechaHoraRegistro); }
+                                       @sDisplayFechaPago
+                                    </div>
+                                 </td>
+                                 <td>
+                                    <div style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">
+                                       @Html.DisplayFor(modelItem => pago.PAGO_NumeroHabitacion)
+                                    </div>
+                                 </td>
+                                 <td>
+                                    <div style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">
+                                       @Html.DisplayFor(modelItem => pago.PAGO_TipoNombre)
+                                    </div>
+                                 </td>
+                                 <td>
+                                    <div style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">
+                                       @{ String sDisplayMontoCancelado = String.Format("{0:##,##0.00}", pago.PAGO_MontoCancelado); }
+                                       @sDisplayMontoCancelado
+                                    </div>
+                                 </td>
+                              </tr>
+                                         }
+                           </tbody>
+                                         }
+                           <tfoot>
+                              <tr class="info">
+                                 <td colspan="4" class="text-right font-lg"><strong>@String.Format("Total: ***{0:##,##0.00}***", @Model.TotalPagos)</strong></td>
+                              </tr>
+                           </tfoot>
+                        </table>
+                     </div>
+                  </div>
+
+                  <!-- end widget content -->
+
+               </div>
+               <!-- end widget div -->
+               <!-- widget content -->
+               @if (Model.ItemsPagos != null && Model.ItemsPagos.Count > 0)
+               {
+               <div class="widget-body" align="right">
+                  <ul class="demo-btns">
+                     <li>
+                        <a href='@Url.Action("CierresSearch", "Cierres", new { Calcular = true })' class="btn btn-labeled btn-primary" title="Cerrar">
+                           <span class="btn-label"><i class="glyphicon glyphicon-asterisk"></i></span>
+                           Cerrar
+                        </a>
+                     </li>
+                  </ul>
+               </div>
+               }
+               <!-- end widget content -->
+            </div>
+            <!-- end widget -->
+
+         </article>
+         <!-- END COL -->
+
+      </div>
+
+   </section>
+</div>
+
+@section pagespecific {
+   <script type="text/javascript">
+
+      // DO NOT REMOVE : GLOBAL FUNCTIONS!
+
+      $(document).ready(function () { });
+
+
+   </script>
+}

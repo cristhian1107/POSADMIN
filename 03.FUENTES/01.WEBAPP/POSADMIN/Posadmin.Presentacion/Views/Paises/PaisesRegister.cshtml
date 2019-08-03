@@ -1,0 +1,158 @@
+﻿@model Posadmin.Models.PaisesModel
+<div id="content">
+   <section id="widget-grid" class="">
+      <div class="row">
+
+         <!-- NEW COL START -->
+         <article class="col-sm-12 col-md-12 col-lg-12">
+
+            <!-- Widget ID (each widget will need unique ID)-->
+            <div class="jarviswidget jarviswidget-color-darken" id="wid-id-3"
+                 data-widget-editbutton="false"
+                 data-widget-deletebutton="false"
+                 data-widget-colorbutton="false"
+                 data-widget-fullscreenbutton="false"
+                 data-widget-collapsed="false"
+                 data-widget-sortable="false">
+
+               <header>
+                  <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
+                  <h2>Paises</h2>
+
+               </header>
+
+               <!-- widget div-->
+               <div>
+
+                  <!-- widget edit box -->
+                  <div class="jarviswidget-editbox">
+                     <!-- This area used as dropdown edit box -->
+
+                  </div>
+                  <!-- end widget edit box -->
+                  <!-- widget content -->
+                  <div class="widget-body no-padding">
+                     @foreach (KeyValuePair<string, ModelState> keyValuePair in ViewData.ModelState)
+                     {
+                        if (String.IsNullOrEmpty(keyValuePair.Key))
+                        {
+                           foreach (ModelError modelError in keyValuePair.Value.Errors)
+                           {
+                           <div class="alert adjusted alert-warning fade in">
+                              <button class="close" data-dismiss="alert">
+                                 ×
+                              </button>
+                              <i class="fa fa-fw fa-lg fa-exclamation-triangle"></i>
+                              <strong>¡Oh No!</strong> <br />
+
+                              @Html.Raw(HttpUtility.HtmlDecode(modelError.ErrorMessage))
+                              <br />
+                           </div>
+                           }
+                        }
+                     }
+
+                     @using (Html.BeginForm("PaisesRegister", "Paises", FormMethod.Post, new { @id = "paises-search", @name = "paises-search", @class = "smart-form", @novalidate = "novalidate" }))
+                     {
+                     @Html.AntiForgeryToken()
+                     <header>
+                        @if (Model.Item.Instance == SoftwareFactory.Infrastructure.BusinessEntity.InstanceEntity.Added)
+                        { <label>Ingresar Paises</label>  }
+                        else
+                        { <label>Editar Paises</label>  }
+                     </header>
+                     <fieldset>
+                        <section class="hidden">
+                           @Html.HiddenFor(model => Model.Item.Instance)
+                           @Html.HiddenFor(model => Model.Item.PAIS_Interno)
+                        </section>
+                        <div class="row">
+                           <section class="col col-6">
+                              @Html.LabelFor(model => model.Item.PAIS_Nombre, new { @class = "label" })
+                              <label class="input">
+                                 @Html.EditorFor(model => model.Item.PAIS_Nombre, new { htmlAttributes = new { @class = "", type = "text", name = "PAIS_Nombre", autocomplete = "off" } })
+                                 <b class="tooltip tooltip-top-right"><i class="fa fa-info-circle txt-color-teal"></i> Ingrese un nombre</b>
+                              </label>
+                              <div class="note note-error" style="font-style: normal; font-size: 11px; line-height: 15px; color: #D56161;">@Html.ValidationMessage("PAIS_Nombre")</div>
+                           </section>
+                           <section class="col col-4">
+                              @Html.LabelFor(model => model.Item.PAIS_Continente, new { @class = "label" })
+                              <label class="input">
+                                 @Html.EditorFor(model => model.Item.PAIS_Continente, new { htmlAttributes = new { @class = "", type = "text", name = "PAIS_Continente", autocomplete = "off" } })
+                                 <b class="tooltip tooltip-top-right"><i class="fa fa-info-circle txt-color-teal"></i> Ingrese un continente</b>
+                              </label>
+                              <div class="note note-error" style="font-style: normal; font-size: 11px; line-height: 15px; color: #D56161;">@Html.ValidationMessage("PAIS_Continente")</div>
+                           </section>
+                           <section class="col col-2" style="min-height:57px; margin-bottom:0px;">
+                              @Html.LabelFor(model => model.Item.PAIS_Activo, new { @class = "label" })
+                              <label class="checkbox">
+                                 @Html.EditorFor(model => model.Item.PAIS_Activo, new { htmlAttributes = new { @class = "", type = "checkbox", name = "PAIS_Activo" } })
+                                 <i></i>
+                              </label>
+                              <div class="note note-error" style="font-style: normal; font-size: 11px; line-height: 15px; color: #D56161;">@Html.ValidationMessage("PAIS_Activo")</div>
+                           </section>
+                        </div>
+                        <div class="row">
+                           <section class="col col-2">
+                              @Html.LabelFor(model => model.Item.PAIS_CodigoNumerico, new { @class = "label" })
+                              <label class="input">
+                                 @Html.EditorFor(model => model.Item.PAIS_CodigoNumerico, new { htmlAttributes = new { @class = "", type = "text", name = "PAIS_CodigoNumerico", autocomplete = "off" } })
+                                 <b class="tooltip tooltip-top-right"><i class="fa fa-info-circle txt-color-teal"></i> Ingrese un codigo numerico</b>
+                              </label>
+                              <div class="note note-error" style="font-style: normal; font-size: 11px; line-height: 15px; color: #D56161;">@Html.ValidationMessage("PAIS_CodigoNumerico")</div>
+                           </section>
+                           <section class="col col-2">
+                              @Html.LabelFor(model => model.Item.PAIS_CodigoAlfa2, new { @class = "label" })
+                              <label class="input">
+                                 @Html.EditorFor(model => model.Item.PAIS_CodigoAlfa2, new { htmlAttributes = new { @class = "", type = "text", name = "PAIS_CodigoAlfa2", autocomplete = "off" } })
+                                 <b class="tooltip tooltip-top-right"><i class="fa fa-info-circle txt-color-teal"></i> Ingrese un codigo alfa2</b>
+                              </label>
+                              <div class="note note-error" style="font-style: normal; font-size: 11px; line-height: 15px; color: #D56161;">@Html.ValidationMessage("PAIS_CodigoAlfa2")</div>
+                           </section>
+                           <section class="col col-2">
+                              @Html.LabelFor(model => model.Item.PAIS_CodigoAlfa3, new { @class = "label" })
+                              <label class="input">
+                                 @Html.EditorFor(model => model.Item.PAIS_CodigoAlfa3, new { htmlAttributes = new { @class = "", type = "text", name = "PAIS_CodigoAlfa3", autocomplete = "off" } })
+                                 <b class="tooltip tooltip-top-right"><i class="fa fa-info-circle txt-color-teal"></i> Ingrese un codigo alfa3</b>
+                              </label>
+                              <div class="note note-error" style="font-style: normal; font-size: 11px; line-height: 15px; color: #D56161;">@Html.ValidationMessage("PAIS_CodigoAlfa3")</div>
+                           </section>
+                           <section class="col col-6">
+                              @Html.LabelFor(model => model.Item.PAIS_Descripcion, new { @class = "label" })
+                              <label class="input">
+                                 @Html.EditorFor(model => model.Item.PAIS_Descripcion, new { htmlAttributes = new { @class = "", type = "text", name = "PAIS_Descripcion", autocomplete = "off" } })
+                                 <b class="tooltip tooltip-top-right"><i class="fa fa-info-circle txt-color-teal"></i> Ingrese una descripcion</b>
+                              </label>
+                              <div class="note note-error" style="font-style: normal; font-size: 11px; line-height: 15px; color: #D56161;">@Html.ValidationMessage("PAIS_Descripcion")</div>
+                           </section>
+                        </div>
+                     </fieldset>
+                     <footer>
+                        <a href='@Url.Action("PaisesSearch", "Paises")' class="btn btn-labeled btn-default" title="Volver" style="padding-left:10px; padding-right:10px;">
+                           <span class="btn-label" style="padding-bottom:0px; padding-top:0px;"><i class="fa fa-undo"></i></span>
+                           Volver
+                        </a>
+                        <button type="submit" class="btn btn-labeled btn-primary" title="Guardar" style="padding-left:10px; padding-right:10px;">
+                           <span class="btn-label" style="padding-bottom:0px; padding-top:0px;"><i class="fa fa-save"></i></span>
+                           Guardar
+                        </button>
+                     </footer>
+                     }
+                  </div>
+
+                  <!-- end widget content -->
+
+               </div>
+               <!-- end widget div -->
+
+            </div>
+            <!-- end widget -->
+
+         </article>
+         <!-- END COL -->
+      </div>
+   </section>
+</div>
+
+@section pagespecific {
+}

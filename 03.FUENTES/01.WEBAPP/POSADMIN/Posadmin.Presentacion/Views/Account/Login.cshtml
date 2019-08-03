@@ -1,0 +1,105 @@
+﻿@model AccountLoginModel
+@{
+  ViewBag.PageId = "extr-page";
+  ViewBag.PageClass = "animated fadeInDown";
+}
+
+
+
+<div id="content" class="container" style="background-color:transparent;">
+   <div style="background-color:transparent;">
+      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4" style="background-color:transparent;">
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4" style="background-color:transparent;">
+         <div style="background-color:transparent;">
+            <img src="~/content/img/logo-white.png" alt="Posadmin" style="margin-left:auto;margin-right:auto;display:block">
+         </div>
+         <br />
+         <div class="well no-padding" style="background-color:transparent;">
+            <form action="@Url.Action("login", "account")" method="POST" id="login-form" class="smart-form client-form">
+               <header>
+                  <div class="text-center" style="background-color:transparent;">
+                     <span class="font-xl"><strong>Bienvenido</strong> </span><br /> <span class="font-sm txt-color-blueLight">Por favor, Iniciar Sesion</span>
+                  </div>
+               </header>
+               @Html.HiddenFor(m => m.ReturnUrl)
+               @Html.AntiForgeryToken()
+               @Html.ValidationBootstrap()
+               <fieldset>
+                  <section>
+                     <label class="label">Empresa</label>
+                     <label class="input">
+                        <i class="icon-prepend fa fa-building"></i>
+                        <input type="text" name="IdEmpresa" maxlength="50" value="">
+                        <b class="tooltip tooltip-top-right"><i class="fa fa-building txt-color-teal"></i> Por favor, ingrese el id de su empresa</b>
+                     </label>
+                  </section>
+                  <section>
+                     <label class="label">Usuario</label>
+                     <label class="input">
+                        <i class="icon-prepend fa fa-user"></i>
+                        <input type="text" name="Usuario" maxlength="25" value="">
+                        <b class="tooltip tooltip-top-right"><i class="fa fa-user txt-color-teal"></i> ingrese su usuario</b>
+                     </label>
+                  </section>
+                  <section>
+                     <label class="label">Constrase&#241;a</label>
+                     <label class="input">
+                        <i class="icon-prepend fa fa-lock"></i>
+                        <input type="password" name="Contrasena" value="">
+                        <b class="tooltip tooltip-top-right"><i class="fa fa-lock txt-color-teal"></i> Ingrese su constrase&#241;a</b>
+                     </label>
+                     <div class="note">
+                        <a href="@Url.Action("forgotpassword", "account")"><i class="fa fa-frown-o"></i> ¿Olvido su constrase&#241;a?</a>
+                     </div>
+                  </section>
+               </fieldset>
+               <footer>
+                  <button type="submit" class="btn btn-primary">
+                     Ingresar
+                  </button>
+               </footer>
+            </form>
+         </div>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4" style="background-color:transparent;">
+      </div>
+   </div>
+</div>
+@section pagespecific {
+   <script type="text/javascript">
+      $(function () {
+         // Validation
+         $("#login-form").validate({
+            // Rules for form validation
+            rules: {
+               email: {
+                  required: true,
+                  //email: true
+               },
+               password: {
+                  required: true,
+                  minlength: 3,
+                  maxlength: 20
+               }
+            },
+
+            // Messages for form validation
+            messages: {
+               email: {
+                  required: 'Por favor, ingrese su usuario',
+                  //email: 'Es necesaria una contraseña'
+               },
+               password: {
+                  required: 'Es necesaria una contraseña'
+               }
+            },
+
+            // Do not change code below
+            errorPlacement: function (error, element) {
+               error.insertAfter(element.parent());
+            }
+         });
+      });
+   </script>
+}

@@ -1,0 +1,240 @@
+﻿@model Posadmin.Models.ConfiguracionesModel
+<div id="content">
+   <section id="widget-grid" class="">
+      <div class="row">
+
+         <!-- NEW COL START -->
+         <article class="col-sm-12 col-md-12 col-lg-12">
+
+            <!-- Widget ID (each widget will need unique ID)-->
+            <div class="jarviswidget jarviswidget-color-darken" id="wid-id-3"
+                 data-widget-editbutton="false"
+                 data-widget-deletebutton="false"
+                 data-widget-colorbutton="false"
+                 data-widget-fullscreenbutton="false"
+                 data-widget-collapsed="false"
+                 data-widget-sortable="false">
+
+               <header>
+                  <span class="widget-icon"> <i class="fa fa-filter"></i> </span>
+                  <h2>Filtros</h2>
+
+               </header>
+
+               <!-- widget div-->
+               <div>
+
+                  <!-- widget edit box -->
+                  <div class="jarviswidget-editbox">
+                     <!-- This area used as dropdown edit box -->
+
+                  </div>
+                  <!-- end widget edit box -->
+                  <!-- widget content -->
+                  <div class="widget-body no-padding">
+                     @foreach (KeyValuePair<string, ModelState> keyValuePair in ViewData.ModelState)
+                     {
+                        if (String.IsNullOrEmpty(keyValuePair.Key))
+                        {
+                           foreach (ModelError modelError in keyValuePair.Value.Errors)
+                           {
+                           <div class="alert adjusted alert-warning fade in">
+                              <button class="close" data-dismiss="alert">
+                                 ×
+                              </button>
+                              <i class="fa fa-fw fa-lg fa-exclamation-triangle"></i>
+                              <strong>¡Oh No!</strong> <br />
+
+                              @Html.Raw(HttpUtility.HtmlDecode(modelError.ErrorMessage))
+                              <br />
+                           </div>
+                           }
+                        }
+                     }
+
+                     @using (Html.BeginForm("ConfiguracionesSearch", "Configuraciones", FormMethod.Post, new { @id = "configuraciones-search", @name = "configuraciones-search", @class = "smart-form", @novalidate = "novalidate" }))
+                     {
+                     @Html.AntiForgeryToken()
+                     <fieldset>
+                        <section class="hidden">
+                           @Html.HiddenFor(model => Model.InternoEmpresa)
+                        </section>
+                        <div class="row">
+                           <section class="col col-6">
+                              @Html.LabelFor(model => model.InternoUsuario, new { @class = "label" })
+                              <label class="select">
+                                 @Html.DropDownListFor(model => model.InternoUsuario, new SelectList(string.Empty, "Value", "Text"), " < Seleccione Usuario > ", new { @id = "InternoUsuario" })
+                                 <b class="tooltip tooltip-top-right"><i class="fa fa-info-circle txt-color-teal"></i> Seleccione un usuario</b>
+                              </label>
+                              <div class="note note-error" style="font-style: normal; font-size: 11px; line-height: 15px; color: #D56161;">@Html.ValidationMessage("InternoUsuario")</div>
+                           </section>
+                           <section class="col col-6">
+                              @Html.LabelFor(model => model.LlaveParametro, new { @class = "label" })
+                              <label class="input">
+                                 @Html.EditorFor(model => model.LlaveParametro, new { htmlAttributes = new { @class = "", type = "text", name = "LlaveParametro", autocomplete = "on", maxlength = "5" } })
+                                 <b class="tooltip tooltip-top-right"><i class="fa fa-info-circle txt-color-teal"></i> Ingrese la llave</b>
+                              </label>
+                           </section>
+                        </div>
+                     </fieldset>
+                     <footer>
+                        <button type="submit" class="btn btn-labeled btn-primary" title="Refrescar" style="padding-left:10px; padding-right:10px;">
+                           <span class="btn-label" style="padding-bottom:0px; padding-top:0px;"><i class="fa fa-retweet"></i></span>
+                           Refrescar
+                        </button>
+                        <a href='@Url.Action("ConfiguracionesRegister", "Configuraciones")' class="btn btn-labeled btn-success" title="Nuevo" style="padding-left:10px; padding-right:10px;">
+                           <span class="btn-label" style="padding-bottom:0px; padding-top:0px;"><i class="fa fa-plus"></i></span>
+                           Nuevo
+                        </a>
+                     </footer>
+                     }
+                  </div>
+
+                  <!-- end widget content -->
+
+               </div>
+               <!-- end widget div -->
+
+            </div>
+            <!-- end widget -->
+
+         </article>
+         <!-- END COL -->
+         <!-- NEW COL START -->
+         <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <!-- Widget ID (each widget will need unique ID)-->
+            <div class="jarviswidget jarviswidget-color-darken" id="result"
+                 data-widget-editbutton="false"
+                 data-widget-deletebutton="false"
+                 data-widget-colorbutton="false"
+                 data-widget-collapsed="false"
+                 data-widget-togglebutton="false"
+                 data-widget-sortable="false">
+               <header>
+                  <span class="widget-icon"> <i class="fa fa-table"></i> </span>
+                  <h2>Resultados</h2>
+               </header>
+               <!-- widget div-->
+               <div>
+                  <!-- widget content -->
+                  <div class="widget-body no-padding">
+                     <table id="dt_basic" class="table table-striped table-bordered table-hover" width="100%">
+                        <thead>
+                           <tr>
+                              <th class="text-center" style="width:25px; min-width:25px;">*</th>
+                              <th class="text-center">Llave</th>
+                              <th class="text-center">Valor</th>
+                              <th class="text-center">Descripcion</th>
+                           </tr>
+                        </thead>
+                     </table>
+
+                  </div>
+                  <!-- end widget content -->
+
+               </div>
+               <!-- end widget div -->
+
+            </div>
+            <!-- end widget -->
+
+         </article>
+         <!-- END COL -->
+
+      </div>
+
+   </section>
+</div>
+
+@section pagespecific {
+   <script type="text/javascript">
+
+      // DO NOT REMOVE : GLOBAL FUNCTIONS!
+
+      $(document).ready(function () {
+
+         renderComboUsuarios($('#InternoUsuario'), 'Usuario',@Model.InternoEmpresa, @Model.InternoUsuario);
+
+         /* BASIC ;*/
+         var responsiveHelper_dt_basic = undefined;
+         var responsiveHelper_datatable_fixed_column = undefined;
+         var responsiveHelper_datatable_col_reorder = undefined;
+         var responsiveHelper_datatable_tabletools = undefined;
+
+         var breakpointDefinition = {
+            tablet: 1024,
+            phone: 480
+         };
+
+         $('#dt_basic').DataTable(
+         {
+            "language":
+                {
+                   "processing": "<div class='overlay custom-loader-background'><i class='fa fa-cog fa-spin custom-loader-color'></i></div>"
+                },
+            "processing": true,
+            "serverSide": true,
+            "ajax":
+                {
+                   "url": "@Url.Action("GetConfiguracionesSearchData", "Configuraciones")",
+                   "type": "POST",
+                   "dataType": "JSON"
+                },
+            "columns": [
+                        { "data": "Buttons" },
+                        { "data": "CONF_Llave_Display" },
+                        { "data": "CONF_Valor_Display" },
+                        { "data": "CONF_Descripcion_Display" },
+            ],
+            "sDom": "t" +
+               "<'dt-toolbar-footer'<'col-sm-6 col-xs-12 hidden-xs'i><'col-xs-12 col-sm-6'p>>",
+            "preDrawCallback": function () {
+               if (!responsiveHelper_dt_basic) {
+                  responsiveHelper_dt_basic = new ResponsiveDatatablesHelper($('#dt_basic'), breakpointDefinition);
+               }
+            },
+            "rowCallback": function (nRow) {
+               responsiveHelper_dt_basic.createExpandIcon(nRow);
+            },
+            "drawCallback": function (oSettings) {
+               responsiveHelper_dt_basic.respond();
+            },
+            "autoWidth": true,
+            "scrollX": true,
+            "pageLength": 10,
+            "scrollY": '75vh',
+            "scroller": {
+               loadingIndicator: true
+            },
+            "scrollCollapse": true,
+            "fixedHeader": true,
+            "language": {
+               "sProcessing": "Procesando...",
+               "sLengthMenu": "Mostrar _MENU_ registros",
+               "sZeroRecords": "No se encontraron resultados",
+               "sEmptyTable": "Ning&uacute;n dato disponible en esta tabla",
+               "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+               "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+               "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+               "sInfoPostFix": "",
+               "sSearch": "Buscar:",
+               "sUrl": "",
+               "sInfoThousands": ", ",
+               "sLoadingRecords": "Cargando...",
+               "oPaginate": {
+                  "sFirst": "Primero",
+                  "sLast": "&UAcute;ltimo",
+                  "sNext": "Siguiente",
+                  "sPrevious": "Anterior"
+               },
+               "oAria": {
+                  "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                  "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+               }
+            }
+         });
+         /* END BASIC */
+      });
+
+   </script>
+}

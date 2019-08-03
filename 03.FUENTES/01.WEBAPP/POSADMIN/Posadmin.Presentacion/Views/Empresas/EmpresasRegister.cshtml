@@ -1,0 +1,233 @@
+﻿@model Posadmin.Models.EmpresasModel
+<div id="content">
+   <section id="widget-grid" class="">
+      <div class="row">
+
+         <!-- NEW COL START -->
+         <article class="col-sm-12 col-md-12 col-lg-12">
+
+            <!-- Widget ID (each widget will need unique ID)-->
+            <div class="jarviswidget jarviswidget-color-darken" id="wid-id-3"
+                 data-widget-editbutton="false"
+                 data-widget-deletebutton="false"
+                 data-widget-colorbutton="false"
+                 data-widget-fullscreenbutton="false"
+                 data-widget-collapsed="false"
+                 data-widget-sortable="false">
+
+               <header>
+                  <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
+                  <h2>Empresas</h2>
+
+               </header>
+
+               <!-- widget div-->
+               <div>
+
+                  <!-- widget edit box -->
+                  <div class="jarviswidget-editbox">
+                     <!-- This area used as dropdown edit box -->
+
+                  </div>
+                  <!-- end widget edit box -->
+                  <!-- widget content -->
+                  <div class="widget-body no-padding">
+                     @foreach (KeyValuePair<string, ModelState> keyValuePair in ViewData.ModelState)
+                     {
+                        if (String.IsNullOrEmpty(keyValuePair.Key))
+                        {
+                           foreach (ModelError modelError in keyValuePair.Value.Errors)
+                           {
+                           <div class="alert adjusted alert-warning fade in">
+                              <button class="close" data-dismiss="alert">
+                                 ×
+                              </button>
+                              <i class="fa fa-fw fa-lg fa-exclamation-triangle"></i>
+                              <strong>¡Oh No!</strong> <br />
+
+                              @Html.Raw(HttpUtility.HtmlDecode(modelError.ErrorMessage))
+                              <br />
+                           </div>
+                           }
+                        }
+                     }
+
+                     @using (Html.BeginForm("EmpresasRegister", "Empresas", FormMethod.Post, new { @id = "empresas-search", @name = "empresas-search", @class = "smart-form", @novalidate = "novalidate" }))
+                     {
+                     @Html.AntiForgeryToken()
+                     <header>
+                        @if (Model.Item.Instance == SoftwareFactory.Infrastructure.BusinessEntity.InstanceEntity.Added)
+                        { <label>Ingresar Empresas</label>  }
+                        else
+                        { <label>Editar Empresas</label>  }
+                     </header>
+                     <fieldset>
+                        <section class="hidden">
+                           @Html.HiddenFor(model => Model.Item.Instance)
+                           @Html.HiddenFor(model => Model.Item.EMPR_Interno)
+                        </section>
+                        <div class="row">
+                           <section class="col col-3">
+                              @Html.LabelFor(model => model.Item.PAIS_Interno, new { @class = "label" })
+                              <label class="select">
+                                 @Html.DropDownListFor(model => model.Item.PAIS_Interno, new SelectList(string.Empty, "Value", "Text"), " < Seleccione Pais > ", new { @id = "PAIS_Interno" })
+                                 <b class="tooltip tooltip-top-right"><i class="fa fa-info-circle txt-color-teal"></i> Selecciones un pais</b>
+                              </label>
+                              <div class="note note-error" style="font-style: normal; font-size: 11px; line-height: 15px; color: #D56161;">@Html.ValidationMessage("PAIS_Interno")</div>
+                           </section>
+                           <section class="col col-3">
+                              @Html.LabelFor(model => model.Item.EMPR_Id, new { @class = "label" })
+                              <label class="input">
+                                 @Html.EditorFor(model => model.Item.EMPR_Id, new { htmlAttributes = new { @class = "", type = "text", name = "EMPR_Id", autocomplete = "off" } })
+                                 <b class="tooltip tooltip-top-right"><i class="fa fa-info-circle txt-color-teal"></i> Ingrese un id</b>
+                              </label>
+                              <div class="note note-error" style="font-style: normal; font-size: 11px; line-height: 15px; color: #D56161;">@Html.ValidationMessage("EMPR_Id")</div>
+                           </section>
+                           <section class="col col-6">
+                              @Html.LabelFor(model => model.Item.EMPR_RazonSocial, new { @class = "label" })
+                              <label class="input">
+                                 @Html.EditorFor(model => model.Item.EMPR_RazonSocial, new { htmlAttributes = new { @class = "", type = "text", name = "EMPR_RazonSocial", autocomplete = "off" } })
+                                 <b class="tooltip tooltip-top-right"><i class="fa fa-info-circle txt-color-teal"></i> Ingrese una razon social</b>
+                              </label>
+                              <div class="note note-error" style="font-style: normal; font-size: 11px; line-height: 15px; color: #D56161;">@Html.ValidationMessage("EMPR_RazonSocial")</div>
+                           </section>
+                        </div>
+                        <div class="row">
+                           <section class="col col-6">
+                              @Html.LabelFor(model => model.Item.EMPR_NombreComercial, new { @class = "label" })
+                              <label class="input">
+                                 @Html.EditorFor(model => model.Item.EMPR_NombreComercial, new { htmlAttributes = new { @class = "", type = "text", name = "EMPR_NombreComercial", autocomplete = "off" } })
+                                 <b class="tooltip tooltip-top-right"><i class="fa fa-info-circle txt-color-teal"></i> Ingrese un nombre comercial</b>
+                              </label>
+                              <div class="note note-error" style="font-style: normal; font-size: 11px; line-height: 15px; color: #D56161;">@Html.ValidationMessage("EMPR_NombreComercial")</div>
+                           </section>
+                           <section class="col col-6">
+                              @Html.LabelFor(model => model.Item.EMPR_Direccion, new { @class = "label" })
+                              <label class="input">
+                                 @Html.EditorFor(model => model.Item.EMPR_Direccion, new { htmlAttributes = new { @class = "", type = "text", name = "EMPR_Direccion", autocomplete = "off" } })
+                                 <b class="tooltip tooltip-top-right"><i class="fa fa-info-circle txt-color-teal"></i> Ingrese una direccion</b>
+                              </label>
+                              <div class="note note-error" style="font-style: normal; font-size: 11px; line-height: 15px; color: #D56161;">@Html.ValidationMessage("EMPR_Direccion")</div>
+                           </section>
+                        </div>
+                        <div class="row">
+                           <section class="col col-4">
+                              @Html.LabelFor(model => model.Item.EMPR_Departamento, new { @class = "label" })
+                              <label class="select">
+                                 @Html.DropDownListFor(model => model.Item.EMPR_Departamento, new SelectList(string.Empty, "Value", "Text"), " < Seleccione Departamento > ", new { @id = "EMPR_Departamento" })
+                              </label>
+                              <div class="note note-error" style="font-style: normal; font-size: 11px; line-height: 15px; color: #D56161;">@Html.ValidationMessage("EMPR_Departamento")</div>
+                           </section>
+                           <section class="col col-4">
+                              @Html.LabelFor(model => model.Item.EMPR_Provincia, new { @class = "label" })
+                              <label class="select">
+                                 @Html.DropDownListFor(model => model.Item.EMPR_Provincia, new SelectList(string.Empty, "Value", "Text"), " < Seleccione Provincia > ", new { @id = "EMPR_Provincia" })
+                              </label>
+                              <div class="note note-error" style="font-style: normal; font-size: 11px; line-height: 15px; color: #D56161;">@Html.ValidationMessage("EMPR_Provincia")</div>
+                           </section>
+                           <section class="col col-4">
+                              @Html.LabelFor(model => model.Item.EMPR_Distrito, new { @class = "label" })
+                              <label class="select">
+                                 @Html.DropDownListFor(model => model.Item.EMPR_Distrito, new SelectList(string.Empty, "Value", "Text"), " < Seleccione Distrito > ", new { @id = "EMPR_Distrito" })
+                              </label>
+                              <div class="note note-error" style="font-style: normal; font-size: 11px; line-height: 15px; color: #D56161;">@Html.ValidationMessage("EMPR_Distrito")</div>
+                           </section>
+                        </div>
+                        <div class="row">
+                           <section class="col col-4">
+                              @Html.LabelFor(model => model.Item.EMPR_Correos, new { @class = "label" })
+                              <label class="input">
+                                 @Html.EditorFor(model => model.Item.EMPR_Correos, new { htmlAttributes = new { @class = "", type = "text", name = "EMPR_Correos", autocomplete = "off" } })
+                                 <b class="tooltip tooltip-top-right"><i class="fa fa-info-circle txt-color-teal"></i> Ingrese un correo</b>
+                              </label>
+                              <div class="note note-error" style="font-style: normal; font-size: 11px; line-height: 15px; color: #D56161;">@Html.ValidationMessage("EMPR_Correos")</div>
+                           </section>
+                           <section class="col col-4">
+                              @Html.LabelFor(model => model.Item.EMPR_Telefonos, new { @class = "label" })
+                              <label class="input">
+                                 @Html.EditorFor(model => model.Item.EMPR_Telefonos, new { htmlAttributes = new { @class = "", type = "text", name = "EMPR_Telefonos", autocomplete = "off" } })
+                                 <b class="tooltip tooltip-top-right"><i class="fa fa-info-circle txt-color-teal"></i> Ingrese un telefono</b>
+                              </label>
+                              <div class="note note-error" style="font-style: normal; font-size: 11px; line-height: 15px; color: #D56161;">@Html.ValidationMessage("EMPR_Telefonos")</div>
+                           </section>
+                           <section class="col col-4">
+                              @Html.LabelFor(model => model.Item.EMPR_Web, new { @class = "label" })
+                              <label class="input">
+                                 @Html.EditorFor(model => model.Item.EMPR_Web, new { htmlAttributes = new { @class = "", type = "text", name = "EMPR_Web", autocomplete = "off" } })
+                                 <b class="tooltip tooltip-top-right"><i class="fa fa-info-circle txt-color-teal"></i> Ingrese una web</b>
+                              </label>
+                              <div class="note note-error" style="font-style: normal; font-size: 11px; line-height: 15px; color: #D56161;">@Html.ValidationMessage("EMPR_Web")</div>
+                           </section>
+                        </div>
+                     </fieldset>
+                     <footer>
+                        <a href='@Url.Action("EmpresasSearch", "Empresas")' class="btn btn-labeled btn-default" title="Volver" style="padding-left:10px; padding-right:10px;">
+                           <span class="btn-label" style="padding-bottom:0px; padding-top:0px;"><i class="fa fa-undo"></i></span>
+                           Volver
+                        </a>
+                        <button type="submit" class="btn btn-labeled btn-primary" title="Guardar" style="padding-left:10px; padding-right:10px;">
+                           <span class="btn-label" style="padding-bottom:0px; padding-top:0px;"><i class="fa fa-save"></i></span>
+                           Guardar
+                        </button>
+                     </footer>
+                     }
+                  </div>
+
+                  <!-- end widget content -->
+
+               </div>
+               <!-- end widget div -->
+
+            </div>
+            <!-- end widget -->
+
+         </article>
+         <!-- END COL -->
+      </div>
+   </section>
+</div>
+
+
+@section pagespecific {
+   <script type="text/javascript">
+
+      // DO NOT REMOVE : GLOBAL FUNCTIONS!
+
+      $(document).ready(function () {
+         renderComboPaises($('#PAIS_Interno'), 'Pais', @Model.Item.PAIS_Interno);
+         if(@Model.Item.EMPR_Interno != '0'){
+            renderComboUbigeoDepartamento($('#EMPR_Departamento'), 'Departamento',@Model.Item.EMPR_Departamento ,@Model.Item.PAIS_Interno);
+            renderComboUbigeoProvincia($('#EMPR_Provincia'), 'Provincia',@Model.Item.EMPR_Departamento, @Model.Item.EMPR_Provincia ,@Model.Item.PAIS_Interno);
+            renderComboUbigeoDistrito($('#EMPR_Distrito'), 'Distrito',@Model.Item.EMPR_Provincia, @Model.Item.EMPR_Distrito ,@Model.Item.PAIS_Interno);
+         }
+      });
+
+      $('#PAIS_Interno').change(function () {
+         LoadDepartamentos('0');
+         LoadProvincias('0');
+         LoadDistritos('0');
+      });
+      function LoadDepartamentos(codigo) {
+         var l_pais = $('#PAIS_Interno').val();
+         renderComboUbigeoDepartamento($('#EMPR_Departamento'), 'Departamento',codigo ,l_pais)
+      };
+      $('#EMPR_Departamento').change(function () {
+         LoadProvincias('0');
+         LoadDistritos('0');
+      });
+      function LoadProvincias(codigo) {
+         var l_pais = $('#PAIS_Interno').val();
+         var l_departamento = $('#EMPR_Departamento').val();
+         renderComboUbigeoProvincia($('#EMPR_Provincia'), 'Provincia',l_departamento, codigo ,l_pais)
+      };
+      $('#EMPR_Provincia').change(function () {
+         LoadDistritos('0');
+      });
+      function LoadDistritos(codigo) {
+         var l_pais = $('#PAIS_Interno').val();
+         var l_provincia = $('#EMPR_Provincia').val();
+         renderComboUbigeoDistrito($('#EMPR_Distrito'), 'Distrito',l_provincia, codigo ,l_pais)
+      };
+
+   </script>
+}

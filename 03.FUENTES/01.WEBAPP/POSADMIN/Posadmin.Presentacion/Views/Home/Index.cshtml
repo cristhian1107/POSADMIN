@@ -1,0 +1,26 @@
+﻿<!-- MAIN CONTENT -->
+<div id="content">
+   <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+         @{
+           var Usuario = (Session[Constantes.SessionUsuario] as Posadmin.BusinessEntities.Usuarios).USUA_NombreCompleto;
+           var Sucursal = (Session[Constantes.SessionUsuario] as Posadmin.BusinessEntities.Usuarios).USUA_NombreSucursal;
+           var Empresa = (Session[Constantes.SessionUsuario] as Posadmin.BusinessEntities.Usuarios).USUA_NombreEmpresa;
+         }
+         <br />
+         <h1 class="txt-color-blueDark text-center"> <strong>BIENVENIDO A</strong></h1>
+         <div style="background-color:transparent;">
+            <img src="~/content/img/logo.png" alt="Posadmin" style="margin-left:auto;margin-right:auto;display:block">
+         </div>
+         <br />
+         <h1 class="txt-color-blueDark text-center"> <span>@Usuario</span></h1>
+         <h1 class="txt-color-blueDark text-center"><i class="fa-fw fa fa-building"></i>Empresa: <span>@Empresa</span></h1>
+         <h1 class="txt-color-blueDark text-center"><i class="fa-fw fa fa-home"></i>Sucursal: <span>@Sucursal</span></h1>
+      </div>
+   </div>
+</div>
+<!-- END MAIN CONTENT -->
+@section pagespecific {
+   <script>
+   </script>
+}

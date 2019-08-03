@@ -1,0 +1,308 @@
+﻿@model Posadmin.Models.PaisesModel
+<div id="content">
+   <section id="widget-grid" class="">
+      <div class="row">
+
+         <!-- NEW COL START -->
+         <article class="col-sm-12 col-md-12 col-lg-12">
+
+            <!-- Widget ID (each widget will need unique ID)-->
+            <div class="jarviswidget jarviswidget-color-darken" id="wid-id-3"
+                 data-widget-editbutton="false"
+                 data-widget-deletebutton="false"
+                 data-widget-colorbutton="false"
+                 data-widget-fullscreenbutton="false"
+                 data-widget-collapsed="false"
+                 data-widget-sortable="false">
+
+               <header>
+                  <span class="widget-icon"> <i class="fa fa-filter"></i> </span>
+                  <h2>Filtros</h2>
+
+               </header>
+
+               <!-- widget div-->
+               <div>
+
+                  <!-- widget edit box -->
+                  <div class="jarviswidget-editbox">
+                     <!-- This area used as dropdown edit box -->
+
+                  </div>
+                  <!-- end widget edit box -->
+                  <!-- widget content -->
+                  <div class="widget-body no-padding">
+                     @foreach (KeyValuePair<string, ModelState> keyValuePair in ViewData.ModelState)
+                     {
+                        if (String.IsNullOrEmpty(keyValuePair.Key))
+                        {
+                           foreach (ModelError modelError in keyValuePair.Value.Errors)
+                           {
+                           <div class="alert adjusted alert-warning fade in">
+                              <button class="close" data-dismiss="alert">
+                                 ×
+                              </button>
+                              <i class="fa fa-fw fa-lg fa-exclamation-triangle"></i>
+                              <strong>¡Oh No!</strong> <br />
+
+                              @Html.Raw(HttpUtility.HtmlDecode(modelError.ErrorMessage))
+                              <br />
+                           </div>
+                           }
+                        }
+                     }
+
+                     @using (Html.BeginForm("PaisesSearch", "Paises", FormMethod.Post, new { @id = "paises-search", @name = "paises-search", @class = "smart-form", @novalidate = "novalidate" }))
+                     {
+                     @Html.AntiForgeryToken()
+                     <fieldset>
+                        <div class="row">
+                           <section class="col col-6">
+                              @Html.LabelFor(model => model.FiltroPaisNombre, new { @class = "label" })
+                              <label class="input">
+                                 @Html.EditorFor(model => model.FiltroPaisNombre, new { htmlAttributes = new { @class = "", type = "text", name = "FiltroPaisNombre", autocomplete = "on", maxlength = "100" } })
+                                 <b class="tooltip tooltip-top-right"><i class="fa fa-info-circle txt-color-teal"></i> Ingrese el nombre de un pais</b>
+                              </label>
+                           </section>
+                           <section class="col col-6"></section>
+                        </div>
+                     </fieldset>
+                     <footer>
+                        <button type="submit" class="btn btn-labeled btn-primary" title="Refrescar" style="padding-left:10px; padding-right:10px;">
+                           <span class="btn-label" style="padding-bottom:0px; padding-top:0px;"><i class="fa fa-retweet"></i></span>
+                           Refrescar
+                        </button>
+                        <a href='@Url.Action("PaisesRegister", "Paises")' class="btn btn-labeled btn-success" title="Nuevo" style="padding-left:10px; padding-right:10px;">
+                           <span class="btn-label" style="padding-bottom:0px; padding-top:0px;"><i class="fa fa-plus"></i></span>
+                           Nuevo
+                        </a>
+                     </footer>
+                     }
+                  </div>
+
+                  <!-- end widget content -->
+
+               </div>
+               <!-- end widget div -->
+
+            </div>
+            <!-- end widget -->
+
+         </article>
+         <!-- END COL -->
+         <!-- NEW COL START -->
+         <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <!-- Widget ID (each widget will need unique ID)-->
+            <div class="jarviswidget jarviswidget-color-darken" id="result"
+                 data-widget-editbutton="false"
+                 data-widget-deletebutton="false"
+                 data-widget-colorbutton="false"
+                 data-widget-collapsed="false"
+                 data-widget-togglebutton="false"
+                 data-widget-sortable="false">
+               <header>
+                  <span class="widget-icon"> <i class="fa fa-table"></i> </span>
+                  <h2>Resultados</h2>
+               </header>
+               <!-- widget div-->
+               <div>
+                  <!-- widget content -->
+                  <div class="widget-body no-padding">
+                     <table id="dt_basic" class="table table-striped table-bordered table-hover" width="100%">
+                        <thead>
+                           <tr>
+                              <th class="text-center" style="width:50px; min-width:50px;">*</th>
+                              <th class="text-center">Nombre</th>
+                              <th class="text-center">Alfa2</th>
+                              <th class="text-center">Alfa3</th>
+                              <th class="text-center">Activo</th>
+                              <th class="text-center">Interno</th>
+                           </tr>
+                        </thead>
+                     </table>
+
+                  </div>
+                  <!-- end widget content -->
+
+               </div>
+               <!-- end widget div -->
+
+            </div>
+            <!-- end widget -->
+
+         </article>
+         <!-- END COL -->
+
+      </div>
+
+      <!-- MODAL -->
+      <div class="modal fade" id="DeleteItem" tabindex="-1" role="dialog">
+         <div class="modal-dialog">
+            <div class="modal-content">
+               <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                     &times;
+                  </button>
+                  <h4 class="modal-title">
+                     <img src="~/content/img/logo-popup.png" width="150" alt="Posadmin">
+                  </h4>
+               </div>
+               <div class="modal-body no-padding">
+                  @using (Html.BeginForm("PaisesDelete", "Paises", FormMethod.Post, new { @id = "delete-form", @class = "smart-form", @novalidate = "novalidate" }))
+                  {
+                  @Html.AntiForgeryToken()
+                  <header>
+                     &#191;Esta seguro que desea eliminar el Pais seleccionado&#63;
+                  </header>
+                  <fieldset>
+                     <section class="hidden">
+                        <input type="hidden" name="DeleteInterno" id="DeleteInterno" />
+                     </section>
+                  </fieldset>
+                  <footer>
+                     <button type="button" name="CancelDelete" id="CancelDelete" class="btn btn-danger" data-dismiss="modal" aria-hidden="true">
+                        No
+                     </button>
+                     <button type="submit" class="btn btn-success">
+                        Si
+                     </button>
+                  </footer>
+                  }
+               </div>
+            </div>
+         </div>
+      </div>
+
+   </section>
+</div>
+
+@section pagespecific {
+   <script type="text/javascript">
+
+      // DO NOT REMOVE : GLOBAL FUNCTIONS!
+
+      $(document).ready(function () {
+
+         /* BASIC ;*/
+         var responsiveHelper_dt_basic = undefined;
+         var responsiveHelper_datatable_fixed_column = undefined;
+         var responsiveHelper_datatable_col_reorder = undefined;
+         var responsiveHelper_datatable_tabletools = undefined;
+
+         var breakpointDefinition = {
+            tablet: 1024,
+            phone: 480
+         };
+
+         $('#dt_basic').DataTable(
+         {
+            "language":
+                {
+                   "processing": "<div class='overlay custom-loader-background'><i class='fa fa-cog fa-spin custom-loader-color'></i></div>"
+                },
+            "processing": true,
+            "serverSide": true,
+            "ajax":
+                {
+                   "url": "@Url.Action("GetPaisesSearchData", "Paises")",
+                   "type": "POST",
+                   "dataType": "JSON"
+                },
+            "columns": [
+                        { "data": "Buttons" },
+                        { "data": "PAIS_Nombre_Display" },
+                        { "data": "PAIS_CodigoAlfa2_Display" },
+                        { "data": "PAIS_CodigoAlfa3_Display" },
+                        {
+                           "data": "PAIS_Activo_Display",
+                           render: function (data, type, row) {
+                              if (type === 'display') {
+                                 if (data === true) {
+                                    return '<div class="smart-form">'
+                                      + '   <label class="checkbox state-disabled">'
+                                      + '      <input type="checkbox" checked disabled="disabled" /><i></i>'
+                                      + '   </label>'
+                                      + '</div>'
+                                 }
+                                 else {
+                                    return '<div class="smart-form">'
+                                      + '   <label class="checkbox state-disabled">'
+                                      + '      <input type="checkbox" disabled="disabled" /><i></i>'
+                                      + '   </label>'
+                                      + '</div>'
+                                 }
+                              }
+                              return data;
+                           }
+                        },
+                        { "data": "PAIS_Interno_Display" },
+            ],
+            "sDom": "t" +
+               "<'dt-toolbar-footer'<'col-sm-6 col-xs-12 hidden-xs'i><'col-xs-12 col-sm-6'p>>",
+            "preDrawCallback": function () {
+               if (!responsiveHelper_dt_basic) {
+                  responsiveHelper_dt_basic = new ResponsiveDatatablesHelper($('#dt_basic'), breakpointDefinition);
+               }
+            },
+            "rowCallback": function (nRow) {
+               responsiveHelper_dt_basic.createExpandIcon(nRow);
+            },
+            "drawCallback": function (oSettings) {
+               responsiveHelper_dt_basic.respond();
+            },
+            "autoWidth": true,
+            "scrollX": true,
+            "pageLength": 10,
+            "scrollY": '75vh',
+            "scroller": {
+               loadingIndicator: true
+            },
+            "scrollCollapse": true,
+            "fixedHeader": true,
+            "language": {
+               "sProcessing": "Procesando...",
+               "sLengthMenu": "Mostrar _MENU_ registros",
+               "sZeroRecords": "No se encontraron resultados",
+               "sEmptyTable": "Ning&uacute;n dato disponible en esta tabla",
+               "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+               "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+               "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+               "sInfoPostFix": "",
+               "sSearch": "Buscar:",
+               "sUrl": "",
+               "sInfoThousands": ", ",
+               "sLoadingRecords": "Cargando...",
+               "oPaginate": {
+                  "sFirst": "Primero",
+                  "sLast": "&UAcute;ltimo",
+                  "sNext": "Siguiente",
+                  "sPrevious": "Anterior"
+               },
+               "oAria": {
+                  "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                  "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+               }
+            }
+         });
+         /* END BASIC */
+
+         $("#CancelDelete").click(function (e) {
+            $.smallBox({
+               title: "Posadmin",
+               content: "<i class='fa fa-clock-o'></i> <i>Usted decidio NO eliminar el item</i>",
+               color: "#3276b1",
+               iconSmall: "fa fa-times fa-2x fadeInRight animated",
+               timeout: 4000
+            });
+            e.preventDefault();
+         })
+
+      });
+
+      function DeleteItem(Codigo) {
+         document.getElementById('DeleteInterno').value = Codigo;
+         $('#DeleteItem').modal("show");
+      };
+
+   </script>
+}

@@ -1,0 +1,8 @@
+﻿<div class="login-info">
+    <span>
+       <a href='@Url.Action("UsuariosRegister", "Usuarios", new { Area ="", Interno = (Session[Constantes.SessionUsuario] as Posadmin.BusinessEntities.Usuarios).ROLE_Interno, ModoEditar = false })' id="show-shortcut">
+          <img src="~/content/img/avatars/male.png" alt="me" class="online" />
+          <span>@User.Identity.Name.ToLower()</span>
+       </a>
+    </span>
+</div>

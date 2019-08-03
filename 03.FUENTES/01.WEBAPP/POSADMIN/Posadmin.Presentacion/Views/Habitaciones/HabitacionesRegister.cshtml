@@ -1,0 +1,186 @@
+﻿@model Posadmin.Models.HabitacionesModel
+<div id="content">
+   <section id="widget-grid" class="">
+      <div class="row">
+
+         <!-- NEW COL START -->
+         <article class="col-sm-12 col-md-12 col-lg-12">
+
+            <!-- Widget ID (each widget will need unique ID)-->
+            <div class="jarviswidget jarviswidget-color-darken" id="wid-id-3"
+                 data-widget-editbutton="false"
+                 data-widget-deletebutton="false"
+                 data-widget-colorbutton="false"
+                 data-widget-fullscreenbutton="false"
+                 data-widget-collapsed="false"
+                 data-widget-sortable="false">
+
+               <header>
+                  <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
+                  <h2>Habitaciones</h2>
+
+               </header>
+
+               <!-- widget div-->
+               <div>
+
+                  <!-- widget edit box -->
+                  <div class="jarviswidget-editbox">
+                     <!-- This area used as dropdown edit box -->
+
+                  </div>
+                  <!-- end widget edit box -->
+                  <!-- widget content -->
+                  <div class="widget-body no-padding">
+                     @foreach (KeyValuePair<string, ModelState> keyValuePair in ViewData.ModelState)
+                     {
+                        if (String.IsNullOrEmpty(keyValuePair.Key))
+                        {
+                           foreach (ModelError modelError in keyValuePair.Value.Errors)
+                           {
+                           <div class="alert adjusted alert-warning fade in">
+                              <button class="close" data-dismiss="alert">
+                                 ×
+                              </button>
+                              <i class="fa fa-fw fa-lg fa-exclamation-triangle"></i>
+                              <strong>¡Oh No!</strong> <br />
+
+                              @Html.Raw(HttpUtility.HtmlDecode(modelError.ErrorMessage))
+                              <br />
+                           </div>
+                           }
+                        }
+                     }
+
+                     @using (Html.BeginForm("HabitacionesRegister", "Habitaciones", FormMethod.Post, new { @id = "habitaciones-search", @name = "habitaciones-search", @class = "smart-form", @novalidate = "novalidate" }))
+                     {
+                     @Html.AntiForgeryToken()
+                     <header>
+                        @if (Model.Item.Instance == SoftwareFactory.Infrastructure.BusinessEntity.InstanceEntity.Added)
+                        { <label>Ingresar Habitaciones</label>  }
+                        else
+                        { <label>Editar Habitaciones</label>  }
+                     </header>
+                     <fieldset>
+                        <section class="hidden">
+                           @Html.HiddenFor(model => Model.Item.Instance)
+                           @Html.HiddenFor(model => Model.Item.EMPR_Interno)
+                           @Html.HiddenFor(model => Model.Item.SUCU_Interno)
+                           @Html.HiddenFor(model => Model.Item.HABI_Interno)
+                        </section>
+                        <div class="row">
+                           <section class="col col-3">
+                              @Html.LabelFor(model => model.Item.TABL_InternoPIS, new { @class = "label" })
+                              <label class="select">
+                                 @{var l_valueTablaPIS = Model.Item.TABL_InternoPIS;}
+                                 <input type="hidden" id="HiddenCodigoTablaPIS" value=@l_valueTablaPIS />
+                                 @Html.DropDownListFor(model => model.Item.TABL_InternoPIS, new SelectList(string.Empty, "Value", "Text"), " < Seleccione Piso > ", new { @id = "TABL_InternoPIS" })
+                                 <b class="tooltip tooltip-top-right"><i class="fa fa-info-circle txt-color-teal"></i> Seleccione un piso</b>
+                              </label>
+                              <div class="note note-error" style="font-style: normal; font-size: 11px; line-height: 15px; color: #D56161;">@Html.ValidationMessage("TABL_InternoPIS")</div>
+                           </section>
+                           <section class="col col-3">
+                              @Html.LabelFor(model => model.Item.TABL_InternoTHA, new { @class = "label" })
+                              <label class="select">
+                                 @{var l_valueTablaTHA = Model.Item.TABL_InternoTHA;}
+                                 <input type="hidden" id="HiddenCodigoTablaTHA" value=@l_valueTablaTHA />
+                                 @Html.DropDownListFor(model => model.Item.TABL_InternoTHA, new SelectList(string.Empty, "Value", "Text"), " < Seleccione Tipo > ", new { @id = "TABL_InternoTHA" })
+                                 <b class="tooltip tooltip-top-right"><i class="fa fa-info-circle txt-color-teal"></i> Seleccione un tipo de habitacion</b>
+                              </label>
+                              <div class="note note-error" style="font-style: normal; font-size: 11px; line-height: 15px; color: #D56161;">@Html.ValidationMessage("TABL_InternoTHA")</div>
+                           </section>
+                           <section class="col col-3">
+                              @Html.LabelFor(model => model.Item.HABI_Numero, new { @class = "label" })
+                              <label class="input">
+                                 @Html.EditorFor(model => model.Item.HABI_Numero, new { htmlAttributes = new { @class = "", type = "text", name = "HABI_Numero", autocomplete = "off" } })
+                                 <b class="tooltip tooltip-top-right"><i class="fa fa-info-circle txt-color-teal"></i> Ingrese un numero</b>
+                              </label>
+                              <div class="note note-error" style="font-style: normal; font-size: 11px; line-height: 15px; color: #D56161;">@Html.ValidationMessage("HABI_Numero")</div>
+                           </section>
+                           <section class="col col-3" style="min-height:57px; margin-bottom:0px;">
+                              @Html.LabelFor(model => model.Item.HABI_Activo, new { @class = "label" })
+                              <label class="checkbox">
+                                 @Html.EditorFor(model => model.Item.HABI_Activo, new { htmlAttributes = new { @class = "", type = "checkbox", name = "HABI_Activo" } })
+                                 <i></i>
+                              </label>
+                              <div class="note note-error" style="font-style: normal; font-size: 11px; line-height: 15px; color: #D56161;">@Html.ValidationMessage("HABI_Activo")</div>
+                           </section>
+                        </div>
+                        <div class="row">
+                           <section class="col col-4">
+                              @Html.LabelFor(model => model.Item.HABI_PrecioDia, new { @class = "label" })
+                              <label class="input">
+                                 @Html.EditorFor(model => model.Item.HABI_PrecioDia, new { htmlAttributes = new { @class = "", style = "text-align:right;", type = "number", name = "HABI_PrecioDia" } })
+                                 <b class="tooltip tooltip-top-right"><i class="fa fa-info-circle txt-color-teal"></i> Ingrese un precio por dia</b>
+                              </label>
+                              <div class="note note-error" style="font-style: normal; font-size: 11px; line-height: 15px; color: #D56161;">@Html.ValidationMessage("HABI_PrecioDia")</div>
+                           </section>
+                           <section class="col col-4">
+                              @Html.LabelFor(model => model.Item.HABI_PrecioHora, new { @class = "label" })
+                              <label class="input">
+                                 @Html.EditorFor(model => model.Item.HABI_PrecioHora, new { htmlAttributes = new { @class = "", style = "text-align:right;", type = "number", name = "HABI_PrecioHora" } })
+                                 <b class="tooltip tooltip-top-right"><i class="fa fa-info-circle txt-color-teal"></i> Ingrese un precio por hora</b>
+                              </label>
+                              <div class="note note-error" style="font-style: normal; font-size: 11px; line-height: 15px; color: #D56161;">@Html.ValidationMessage("HABI_PrecioHora")</div>
+                           </section>
+                           <section class="col col-4">
+                              @Html.LabelFor(model => model.Item.HABI_PrecioMinimo, new { @class = "label" })
+                              <label class="input">
+                                 @Html.EditorFor(model => model.Item.HABI_PrecioMinimo, new { htmlAttributes = new { @class = "", style = "text-align:right;", type = "number", name = "HABI_PrecioMinimo" } })
+                                 <b class="tooltip tooltip-top-right"><i class="fa fa-info-circle txt-color-teal"></i> Ingrese un precio minimo</b>
+                              </label>
+                              <div class="note note-error" style="font-style: normal; font-size: 11px; line-height: 15px; color: #D56161;">@Html.ValidationMessage("HABI_PrecioMinimo")</div>
+                           </section>
+                        </div>
+                        <section>
+                           @Html.LabelFor(model => model.Item.HABI_Descripcion, new { @class = "label" })
+                           <label class="textarea">
+                              @Html.TextAreaFor(model => Model.Item.HABI_Descripcion, new { rows = 5, htmlAttributes = new { @class = "", name = "HABI_Descripcion" } })
+                              <b class="tooltip tooltip-top-right"><i class="fa fa-info-circle txt-color-teal"></i> Ingrese una descripcion</b>
+                           </label>
+                           <div class="note note-error" style="font-style: normal; font-size: 11px; line-height: 15px; color: #D56161;">@Html.ValidationMessage("HABI_Descripcion")</div>
+                        </section>
+                     </fieldset>
+                     <footer>
+                        <a href='@Url.Action("HabitacionesSearch", "Habitaciones")' class="btn btn-labeled btn-default" title="Volver" style="padding-left:10px; padding-right:10px;">
+                           <span class="btn-label" style="padding-bottom:0px; padding-top:0px;"><i class="fa fa-undo"></i></span>
+                           Volver
+                        </a>
+                        <button type="submit" class="btn btn-labeled btn-primary" title="Guardar" style="padding-left:10px; padding-right:10px;">
+                           <span class="btn-label" style="padding-bottom:0px; padding-top:0px;"><i class="fa fa-save"></i></span>
+                           Guardar
+                        </button>
+                     </footer>
+                     }
+                  </div>
+
+                  <!-- end widget content -->
+
+               </div>
+               <!-- end widget div -->
+
+            </div>
+            <!-- end widget -->
+         </article>
+         <!-- END COL -->
+      </div>
+   </section>
+</div>
+
+
+@section pagespecific {
+   <script type="text/javascript">
+
+      // DO NOT REMOVE : GLOBAL FUNCTIONS!
+
+      $(document).ready(function () {
+         var l_tablaPIS = document.getElementById("HiddenCodigoTablaPIS").value;
+         renderComboTablasActivas($('#TABL_InternoPIS'), 'Piso', @Model.Item.EMPR_Interno,'PIS', l_tablaPIS );
+
+         var l_tablaTHA = document.getElementById("HiddenCodigoTablaTHA").value;
+         renderComboTablasActivas($('#TABL_InternoTHA'), 'Tipo', @Model.Item.EMPR_Interno,'THA', l_tablaTHA );
+      });
+
+
+   </script>
+}

@@ -1,0 +1,569 @@
+﻿@model Posadmin.Models.IndicadoresSemanalesModel
+<div id="content">
+   <section id="widget-grid" class="">
+      <!-- row -->
+      <div class="row">
+         <!-- NEW COL START -->
+         <article class="col-sm-12 col-md-12 col-lg-12">
+
+            <!-- Widget ID (each widget will need unique ID)-->
+            <div class="jarviswidget jarviswidget-color-darken" id="wid-id-3"
+                 data-widget-editbutton="false"
+                 data-widget-deletebutton="false"
+                 data-widget-colorbutton="false"
+                 data-widget-fullscreenbutton="false"
+                 data-widget-collapsed="false"
+                 data-widget-sortable="false">
+
+               <header>
+                  <span class="widget-icon"> <i class="fa fa-filter"></i> </span>
+                  <h2>Filtros</h2>
+
+               </header>
+
+               <!-- widget div-->
+               <div>
+
+                  <!-- widget edit box -->
+                  <div class="jarviswidget-editbox">
+                     <!-- This area used as dropdown edit box -->
+
+                  </div>
+                  <!-- end widget edit box -->
+                  <!-- widget content -->
+                  <div class="widget-body no-padding">
+                     @foreach (KeyValuePair<string, ModelState> keyValuePair in ViewData.ModelState)
+                     {
+                        if (String.IsNullOrEmpty(keyValuePair.Key))
+                        {
+                           foreach (ModelError modelError in keyValuePair.Value.Errors)
+                           {
+                           <div class="alert adjusted alert-warning fade in">
+                              <button class="close" data-dismiss="alert">
+                                 ×
+                              </button>
+                              <i class="fa fa-fw fa-lg fa-exclamation-triangle"></i>
+                              <strong>¡Oh No!</strong> <br />
+
+                              @Html.Raw(HttpUtility.HtmlDecode(modelError.ErrorMessage))
+                              <br />
+                           </div>
+                           }
+                        }
+                     }
+
+                     @using (Html.BeginForm("IndicadoresSemanalesSearch", "IndicadoresSemanales", FormMethod.Post, new { @id = "semanales-search", @name = "semanales-search", @class = "smart-form", @novalidate = "novalidate" }))
+                     {
+                     @Html.AntiForgeryToken()
+                     <fieldset>
+                        <section class="hidden">
+                           @Html.HiddenFor(model => Model.InternoEmpresa)
+                           @Html.HiddenFor(model => Model.InternoSucursal)
+                        </section>
+                        <div class="row">
+                           <section class="col col-4">
+                              @Html.LabelFor(model => model.FiltroSucursal, new { @class = "label" })
+                              <label class="select">
+                                 @Html.DropDownListFor(model => model.FiltroSucursal, new SelectList(string.Empty, "Value", "Text"), " < Seleccione Sucursal > ", new { @id = "FiltroSucursal" })
+                                 <b class="tooltip tooltip-top-right"><i class="fa fa-info-circle txt-color-teal"></i> Seleccione una sucursal</b>
+                              </label>
+                              <div class="note note-error" style="font-style: normal; font-size: 11px; line-height: 15px; color: #D56161;">@Html.ValidationMessage("FiltroSucursal")</div>
+                           </section>
+                           <section class="col col-4">
+                              @Html.LabelFor(model => model.FiltroFecDesde, new { @class = "label" })
+                              <label class="select">
+                                 @Html.EditorFor(model => model.FiltroFecDesde, new { htmlAttributes = new { @class = "", type = "date", name = "FiltroFecDesde", autocomplete = "off" } })
+                                 <b class="tooltip tooltip-top-right"><i class="fa fa-info-circle txt-color-teal"></i> Seleccione una fecha</b>
+                              </label>
+                              <div class="note note-error" style="font-style: normal; font-size: 11px; line-height: 15px; color: #D56161;">@Html.ValidationMessage("FiltroFecDesde")</div>
+                           </section>
+                           <section class="col col-4">
+                              @Html.LabelFor(model => model.FiltroFecHasta, new { @class = "label" })
+                              <label class="select">
+                                 @Html.EditorFor(model => model.FiltroFecHasta, new { htmlAttributes = new { @class = "", type = "date", name = "FiltroFecHasta", autocomplete = "off" } })
+                                 <b class="tooltip tooltip-top-right"><i class="fa fa-info-circle txt-color-teal"></i> Seleccione una fecha</b>
+                              </label>
+                              <div class="note note-error" style="font-style: normal; font-size: 11px; line-height: 15px; color: #D56161;">@Html.ValidationMessage("FiltroFecHasta")</div>
+                           </section>
+                        </div>
+                     </fieldset>
+                     <footer>
+                        <button type="submit" class="btn btn-labeled btn-primary" title="Refrescar" style="padding-left:10px; padding-right:10px;">
+                           <span class="btn-label" style="padding-bottom:0px; padding-top:0px;"><i class="fa fa-retweet"></i></span>
+                           Refrescar
+                        </button>
+                     </footer>
+                     }
+                  </div>
+
+                  <!-- end widget content -->
+
+               </div>
+               <!-- end widget div -->
+
+            </div>
+            <!-- end widget -->
+
+         </article>
+         <!-- END COL -->
+      </div>
+      <!-- end row -->
+      <!-- row -->
+      <div class="row">
+         <!-- NEW WIDGET START -->
+         <article class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+            <!-- Widget ID (each widget will need unique ID)-->
+            <div class="jarviswidget jarviswidget-color-darken" id="wid-id-10" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-sortable="false">
+               <!-- widget options:
+                   usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+
+                   data-widget-colorbutton="false"
+                   data-widget-editbutton="false"
+                   data-widget-togglebutton="false"
+                   data-widget-deletebutton="false"
+                   data-widget-fullscreenbutton="false"
+                   data-widget-custombutton="false"
+                   data-widget-collapsed="true"
+                   data-widget-sortable="false"
+
+               -->
+               <header>
+                  <span class="widget-icon"> <i class="fa fa-bar-chart-o"></i> </span>
+                  <h2>Informe Registros</h2>
+               </header>
+
+               <!-- widget div-->
+               <div>
+
+                  <!-- widget edit box -->
+                  <div class="jarviswidget-editbox">
+                     <!-- This area used as dropdown edit box -->
+                     <input class="form-control" type="text">
+                  </div>
+                  <!-- end widget edit box -->
+                  <!-- widget content -->
+                  <div class="widget-body">
+
+                     <!-- this is what the user will see -->
+                     <canvas id="chartcomparacionventas" height="250"></canvas>
+
+                  </div>
+                  <!-- end widget content -->
+
+               </div>
+               <!-- end widget div -->
+
+            </div>
+            <!-- end widget -->
+         </article>
+         <!-- WIDGET END -->
+         <!-- NEW WIDGET START -->
+         <article class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+            <!-- Widget ID (each widget will need unique ID)-->
+            <div class="jarviswidget jarviswidget-color-darken" id="wid-id-11" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-sortable="false">
+               <!-- widget options:
+                   usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+
+                   data-widget-colorbutton="false"
+                   data-widget-editbutton="false"
+                   data-widget-togglebutton="false"
+                   data-widget-deletebutton="false"
+                   data-widget-fullscreenbutton="false"
+                   data-widget-custombutton="false"
+                   data-widget-collapsed="true"
+                   data-widget-sortable="false"
+
+               -->
+               <header>
+                  <span class="widget-icon"> <i class="fa fa-bar-chart-o"></i> </span>
+                  <h2>Top 5 Dias</h2>
+               </header>
+
+               <!-- widget div-->
+               <div>
+
+                  <!-- widget edit box -->
+                  <div class="jarviswidget-editbox">
+                     <!-- This area used as dropdown edit box -->
+                     <input class="form-control" type="text">
+                  </div>
+                  <!-- end widget edit box -->
+                  <!-- widget content -->
+                  <div class="widget-body">
+
+                     <!-- this is what the user will see -->
+                     <canvas id="charttoprecaudaciondia" height="250"></canvas>
+
+                  </div>
+                  <!-- end widget content -->
+
+               </div>
+               <!-- end widget div -->
+
+            </div>
+            <!-- end widget -->
+         </article>
+         <!-- WIDGET END -->
+      </div>
+      <!-- end row -->
+      <!-- row -->
+      <div class="row">
+         <!-- NEW WIDGET START -->
+         <article class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+            <!-- Widget ID (each widget will need unique ID)-->
+            <div class="jarviswidget jarviswidget-color-darken" id="wid-id-12" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-sortable="false">
+               <!-- widget options:
+                   usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+
+                   data-widget-colorbutton="false"
+                   data-widget-editbutton="false"
+                   data-widget-togglebutton="false"
+                   data-widget-deletebutton="false"
+                   data-widget-fullscreenbutton="false"
+                   data-widget-custombutton="false"
+                   data-widget-collapsed="true"
+                   data-widget-sortable="false"
+
+               -->
+               <header>
+                  <span class="widget-icon"> <i class="fa fa-bar-chart-o"></i> </span>
+                  <h2>Visitas por Dia</h2>
+               </header>
+
+               <!-- widget div-->
+               <div>
+
+                  <!-- widget edit box -->
+                  <div class="jarviswidget-editbox">
+                     <!-- This area used as dropdown edit box -->
+                     <input class="form-control" type="text">
+                  </div>
+                  <!-- end widget edit box -->
+                  <!-- widget content -->
+                  <div class="widget-body">
+
+                     <!-- this is what the user will see -->
+                     <canvas id="chartinformeregistros" height="200"></canvas>
+
+                  </div>
+                  <!-- end widget content -->
+
+               </div>
+               <!-- end widget div -->
+
+            </div>
+            <!-- end widget -->
+         </article>
+         <!-- WIDGET END -->
+         <!-- NEW WIDGET START -->
+         <article class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+            <!-- Widget ID (each widget will need unique ID)-->
+            <div class="jarviswidget jarviswidget-color-darken" id="wid-id-13" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-sortable="false">
+               <!-- widget options:
+                   usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+
+                   data-widget-colorbutton="false"
+                   data-widget-editbutton="false"
+                   data-widget-togglebutton="false"
+                   data-widget-deletebutton="false"
+                   data-widget-fullscreenbutton="false"
+                   data-widget-custombutton="false"
+                   data-widget-collapsed="true"
+                   data-widget-sortable="false"
+
+               -->
+               <header>
+                  <span class="widget-icon"> <i class="fa fa-bar-chart-o"></i> </span>
+                  <h2>Ventas por Dia</h2>
+               </header>
+
+               <!-- widget div-->
+               <div>
+
+                  <!-- widget edit box -->
+                  <div class="jarviswidget-editbox">
+                     <!-- This area used as dropdown edit box -->
+                     <input class="form-control" type="text">
+                  </div>
+                  <!-- end widget edit box -->
+                  <!-- widget content -->
+                  <div class="widget-body">
+
+                     <!-- this is what the user will see -->
+                     <canvas id="chartinformereservas" height="200"></canvas>
+
+                  </div>
+                  <!-- end widget content -->
+
+               </div>
+               <!-- end widget div -->
+
+            </div>
+            <!-- end widget -->
+         </article>
+         <!-- WIDGET END -->
+      </div>
+      <!-- end row -->
+   </section>
+</div>
+
+@section pagespecific {
+   @*<script src="~/Scripts/chart/250/Chart.min.js"></script>*@
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+   <script type="text/javascript">
+
+      // DO NOT REMOVE : GLOBAL FUNCTIONS!
+
+      $(document).ready(function () {
+         renderComboSucursales($('#FiltroSucursal'), 'Sucursal',@Model.InternoEmpresa, @Model.FiltroSucursal);
+      });
+
+      // CHART - VENTAS DIA
+      $.ajax({
+         type: "GET",
+         url: 'GetIndicadorVentasDiaJSON',
+         success: function (result) {
+            var jsonfile = JSON.parse(result);
+            var labels = jsonfile.Ventas.map(function (e) {
+               return e.Dias;
+            });
+            var data1 = jsonfile.Ventas.map(function (e) {
+               return e.Ideal;
+            });
+            var data2 = jsonfile.Ventas.map(function (e) {
+               return e.Esperada;
+            });
+            var data3 = jsonfile.Ventas.map(function (e) {
+               return e.Obtenida;
+            });
+            new Chart(document.getElementById("chartcomparacionventas"), {
+               type: 'line',
+               data: {
+                  labels: labels,
+                  datasets: [{ 
+                     data: data1,
+                     label: "Ideal",
+                     borderColor: "#3cba9f",
+                     fill: false
+                  }, { 
+                     data: data2,
+                     label: "Esperada",
+                     borderColor: "#c45850",
+                     fill: false
+                  }, { 
+                     data: data3,
+                     label: "Obtenida",
+                     borderColor: "#3e95cd",
+                     fill: false
+                  }
+                  ]
+               },
+               options: {
+                  title: {
+                     display: true,
+                     text: 'Comparacion de Ventas por Dia'
+                  },
+                  legend: {
+                     display: true
+                  },
+                  tooltips: {
+                     mode: 'index',
+                     label: 'myLabel',
+                     callbacks: {
+                        label: function (tooltipItem, data) {
+                           return data.datasets[tooltipItem.datasetIndex].label + ': ' + tooltipItem.yLabel.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                        }
+                     }
+                  },
+                  //tooltips: {
+                  //   callbacks: {
+                  //      label: function(t, d) {
+                  //         var xLabel = d.datasets[t.datasetIndex].label;
+                  //         var yLabel = t.yLabel;
+                  //         // if line chart // else -> if bar chart
+                  //         if (t.datasetIndex === 0) return xLabel + ': ' + yLabel.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                  //         else if (t.datasetIndex === 1) return xLabel + ': ' + yLabel.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                  //      }
+                  //   }
+                  //},
+                  scales: {
+                     yAxes: [
+                         {
+                            ticks: {
+                               callback: function (label, index, labels) {
+                                  return label / 1000 + 'k';
+                               }
+                            },
+                            scaleLabel: {
+                               display: true,
+                               labelString: '1k = 1000'
+                            }
+                         }
+                     ]
+                  }
+               }
+            });
+
+         }
+      });
+      // END CHART
+
+      // CHART - TOP DIA MAYOR VENTA
+      $.ajax({
+         type: "GET",
+         url: 'GetIndicadorTopRecaudacionDiaJSON',
+         success: function (result) {
+            var jsonfile = JSON.parse(result);
+            var labels = jsonfile.Recaudacion.map(function (e) {
+               return e.Dia;
+            });
+            var data1 = jsonfile.Recaudacion.map(function (e) {
+               return e.Monto;
+            });
+            var colors = [getRandomColor()];
+            for (x=1;x<labels.length;x++){
+               colors.push(getRandomColor());
+            };
+            new Chart(document.getElementById("charttoprecaudaciondia"), {
+               type: 'horizontalBar',
+               data: {
+                  labels: labels,
+                  datasets: [
+                    {
+                       label: "Monto Recaudado",
+                       backgroundColor: colors,
+                       data: data1
+                    }
+                  ]
+               },
+               options: {
+                  legend: { display: false },
+                  title: {
+                     display: true,
+                     text: 'Dia con Mayor Recaudacion'
+                  },
+                  tooltips: {
+                     callbacks: {
+                        title: function (tooltipItem, data) {
+                           return data['labels'][tooltipItem[0]['index']];
+                        },
+                        label: function (tooltipItem, data) {
+                           return "Monto Recaudado: " + (data['datasets'][0]['data'][tooltipItem['index']]).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                        }
+                     },
+                     backgroundColor: '#FFF',
+                     titleFontSize: 16,
+                     titleFontColor: '#0066ff',
+                     bodyFontColor: '#000',
+                     bodyFontSize: 14,
+                     displayColors: false
+                  }
+               }
+            });
+
+         }
+      });
+      // END CHART
+
+      // CHART - INFORME REGISTROS
+      $.ajax({
+         type: "GET",
+         url: 'GetIndicadorInformeRegistrosJSON',
+         success: function (result) {
+            var jsonfile = JSON.parse(result);
+            var labels = jsonfile.Registros.map(function (e) {
+               return e.Dias;
+            });
+            var data1 = jsonfile.Registros.map(function (e) {
+               return e.Activos;
+            });
+            var data2 = jsonfile.Registros.map(function (e) {
+               return e.Anulados;
+            });
+            var data3 = jsonfile.Registros.map(function (e) {
+               return e.Cancelados;
+            });
+            new Chart(document.getElementById("chartinformeregistros"), {
+               type: 'bar',
+               data: {
+                  labels: labels,
+                  datasets: [
+                    {
+                       label: "Activos",
+                       backgroundColor: "#3cba9f",
+                       data: data1
+                    }, {
+                       label: "Anulados",
+                       backgroundColor: "#c45850",
+                       data: data2
+                    }, {
+                       label: "Cancelados",
+                       backgroundColor: "#3e95cd",
+                       data: data3
+                    }
+                  ]
+               },
+               options: {
+                  title: {
+                     display: true,
+                     text: 'Informe de Estado de Registros'
+                  }
+               }
+            });
+
+         }
+      });
+      // END CHART
+
+      // CHART - INFORME RESERVAS
+      $.ajax({
+         type: "GET",
+         url: 'GetIndicadorInformeReservasJSON',
+         success: function (result) {
+            var jsonfile = JSON.parse(result);
+            var labels = jsonfile.Reservas.map(function (e) {
+               return e.Dias;
+            });
+            var data1 = jsonfile.Reservas.map(function (e) {
+               return e.Concluidos;
+            });
+            var data2 = jsonfile.Reservas.map(function (e) {
+               return e.Anulados;
+            });
+            var data3 = jsonfile.Reservas.map(function (e) {
+               return e.Inconclusos;
+            });
+            new Chart(document.getElementById("chartinformereservas"), {
+               type: 'bar',
+               data: {
+                  labels: labels,
+                  datasets: [
+                    {
+                       label: "Concluidos",
+                       backgroundColor: "#3cba9f",
+                       data: data1
+                    }, {
+                       label: "Anulados",
+                       backgroundColor: "#c45850",
+                       data: data2
+                    }, {
+                       label: "Inconclusos",
+                       backgroundColor: "#3e95cd",
+                       data: data3
+                    }
+                  ]
+               },
+               options: {
+                  title: {
+                     display: true,
+                     text: 'Informe de Estado de Reservas'
+                  }
+               }
+            });
+
+         }
+      });
+      // END CHART
+
+   </script>
+}

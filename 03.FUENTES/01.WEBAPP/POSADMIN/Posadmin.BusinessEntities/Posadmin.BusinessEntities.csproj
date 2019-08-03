@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{4509E779-B792-4CA3-93D9-881A1EE8F79C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Posadmin.BusinessEntities</RootNamespace>
+    <AssemblyName>Posadmin.BusinessEntities</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Cierres\Cierres.cs" />
+    <Compile Include="Cierres\Cierres.display.cs" />
+    <Compile Include="Cierres\Cierres.partial.cs" />
+    <Compile Include="Cierres\Cierres.validation.cs" />
+    <Compile Include="Configuraciones\Configuraciones.cs" />
+    <Compile Include="Configuraciones\Configuraciones.display.cs" />
+    <Compile Include="Configuraciones\Configuraciones.partial.cs" />
+    <Compile Include="Configuraciones\Configuraciones.validation.cs" />
+    <Compile Include="DetallesPagosRegistros\DetallesPagosRegistros.cs" />
+    <Compile Include="DetallesPagosRegistros\DetallesPagosRegistros.display.cs" />
+    <Compile Include="DetallesPagosRegistros\DetallesPagosRegistros.partial.cs" />
+    <Compile Include="DetallesPagosRegistros\DetallesPagosRegistros.validation.cs" />
+    <Compile Include="Empresas\Empresas.cs" />
+    <Compile Include="Empresas\Empresas.display.cs" />
+    <Compile Include="Empresas\Empresas.partial.cs" />
+    <Compile Include="Empresas\Empresas.validation.cs" />
+    <Compile Include="Entidades\Entidades.cs" />
+    <Compile Include="Entidades\Entidades.display.cs" />
+    <Compile Include="Entidades\Entidades.partial.cs" />
+    <Compile Include="Entidades\Entidades.validation.cs" />
+    <Compile Include="FuncionesEntidades\FuncionesEntidades.cs" />
+    <Compile Include="FuncionesEntidades\FuncionesEntidades.display.cs" />
+    <Compile Include="FuncionesEntidades\FuncionesEntidades.partial.cs" />
+    <Compile Include="FuncionesEntidades\FuncionesEntidades.validation.cs" />
+    <Compile Include="Habitaciones\Habitaciones.cs" />
+    <Compile Include="Habitaciones\Habitaciones.display.cs" />
+    <Compile Include="Habitaciones\Habitaciones.partial.cs" />
+    <Compile Include="Habitaciones\Habitaciones.validation.cs" />
+    <Compile Include="Opciones\Opciones.cs" />
+    <Compile Include="Opciones\Opciones.display.cs" />
+    <Compile Include="Opciones\Opciones.partial.cs" />
+    <Compile Include="Opciones\Opciones.validation.cs" />
+    <Compile Include="Paises\Paises.cs" />
+    <Compile Include="Paises\Paises.display.cs" />
+    <Compile Include="Paises\Paises.partial.cs" />
+    <Compile Include="Paises\Paises.validation.cs" />
+    <Compile Include="Parametros\Parametros.cs" />
+    <Compile Include="Parametros\Parametros.display.cs" />
+    <Compile Include="Parametros\Parametros.partial.cs" />
+    <Compile Include="Parametros\Parametros.validation.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Registros\Registros.cs" />
+    <Compile Include="Registros\Registros.display.cs" />
+    <Compile Include="Registros\Registros.partial.cs" />
+    <Compile Include="Registros\Registros.validation.cs" />
+    <Compile Include="Reservaciones\Reservaciones.cs" />
+    <Compile Include="Reservaciones\Reservaciones.display.cs" />
+    <Compile Include="Reservaciones\Reservaciones.partial.cs" />
+    <Compile Include="Reservaciones\Reservaciones.validation.cs" />
+    <Compile Include="Retiros\Retiros.cs" />
+    <Compile Include="Retiros\Retiros.display.cs" />
+    <Compile Include="Retiros\Retiros.partial.cs" />
+    <Compile Include="Retiros\Retiros.validation.cs" />
+    <Compile Include="Roles\Roles.cs" />
+    <Compile Include="Roles\Roles.display.cs" />
+    <Compile Include="Roles\Roles.partial.cs" />
+    <Compile Include="Roles\Roles.validation.cs" />
+    <Compile Include="Sucursales\Sucursales.cs" />
+    <Compile Include="Sucursales\Sucursales.display.cs" />
+    <Compile Include="Sucursales\Sucursales.partial.cs" />
+    <Compile Include="Sucursales\Sucursales.validation.cs" />
+    <Compile Include="Tablas\Tablas.cs" />
+    <Compile Include="Tablas\Tablas.display.cs" />
+    <Compile Include="Tablas\Tablas.partial.cs" />
+    <Compile Include="Tablas\Tablas.validation.cs" />
+    <Compile Include="Turnos\Turnos.cs" />
+    <Compile Include="Turnos\Turnos.display.cs" />
+    <Compile Include="Turnos\Turnos.partial.cs" />
+    <Compile Include="Turnos\Turnos.validation.cs" />
+    <Compile Include="Ubigeos\Ubigeos.cs" />
+    <Compile Include="Ubigeos\Ubigeos.display.cs" />
+    <Compile Include="Ubigeos\Ubigeos.partial.cs" />
+    <Compile Include="Ubigeos\Ubigeos.validation.cs" />
+    <Compile Include="Usuarios\Usuarios.cs" />
+    <Compile Include="Usuarios\Usuarios.display.cs" />
+    <Compile Include="Usuarios\Usuarios.partial.cs" />
+    <Compile Include="Usuarios\Usuarios.validation.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SoftwareFactory.Infrastructure\SoftwareFactory.Infrastructure.csproj">
+      <Project>{436ad866-63f2-4351-a56b-fd31e1753cd7}</Project>
+      <Name>SoftwareFactory.Infrastructure</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

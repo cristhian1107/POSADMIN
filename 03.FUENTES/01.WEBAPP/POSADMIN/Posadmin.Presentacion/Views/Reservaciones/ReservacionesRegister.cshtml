@@ -1,0 +1,343 @@
+﻿@model Posadmin.Models.ReservacionesModel
+<div id="content">
+   <section id="widget-grid" class="">
+      <div class="row">
+
+         <!-- NEW COL START -->
+         <article class="col-sm-12 col-md-12 col-lg-12">
+
+            <!-- Widget ID (each widget will need unique ID)-->
+            <div class="jarviswidget jarviswidget-color-darken" id="wid-id-3"
+                 data-widget-editbutton="false"
+                 data-widget-deletebutton="false"
+                 data-widget-colorbutton="false"
+                 data-widget-fullscreenbutton="false"
+                 data-widget-collapsed="false"
+                 data-widget-sortable="false">
+
+               <header>
+                  <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
+                  <h2>Reservaciones</h2>
+
+               </header>
+
+               <!-- widget div-->
+               <div>
+
+                  <!-- widget edit box -->
+                  <div class="jarviswidget-editbox">
+                     <!-- This area used as dropdown edit box -->
+
+                  </div>
+                  <!-- end widget edit box -->
+                  <!-- widget content -->
+                  <div class="widget-body no-padding">
+                     @foreach (KeyValuePair<string, ModelState> keyValuePair in ViewData.ModelState)
+                     {
+                        if (String.IsNullOrEmpty(keyValuePair.Key))
+                        {
+                           foreach (ModelError modelError in keyValuePair.Value.Errors)
+                           {
+                           <div class="alert adjusted alert-warning fade in">
+                              <button class="close" data-dismiss="alert">
+                                 ×
+                              </button>
+                              <i class="fa fa-fw fa-lg fa-exclamation-triangle"></i>
+                              <strong>¡Oh No!</strong> <br />
+
+                              @Html.Raw(HttpUtility.HtmlDecode(modelError.ErrorMessage))
+                              <br />
+                           </div>
+                           }
+                        }
+                     }
+
+                     @using (Html.BeginForm("ReservacionesRegister", "Reservaciones", FormMethod.Post, new { @id = "reservaciones-search", @name = "reservaciones-search", @class = "smart-form", @novalidate = "novalidate" }))
+                     {
+                     @Html.AntiForgeryToken()
+                     <header>
+                        <label>Datos Generales</label>
+                     </header>
+                     <fieldset>
+                        <section class="hidden">
+                           @Html.HiddenFor(model => Model.Item.Instance)
+                           @Html.HiddenFor(model => Model.Item.EMPR_Interno)
+                           @Html.HiddenFor(model => Model.Item.SUCU_Interno)
+                           @Html.HiddenFor(model => Model.Item.RESE_Interno)
+                           @Html.HiddenFor(model => Model.Item.RESE_Estado)
+                           @Html.HiddenFor(model => Model.Item.ENTI_Interno, new { @id = "ENTI_Interno" })
+                        </section>
+                        <div class="row">
+                           <section class="col col-3">
+                              @Html.LabelFor(model => model.Item.RESE_Estado, new { @class = "label" })
+                              <label class="select">
+                                 @{var l_valueEstado = Model.Item.RESE_Estado;}
+                                 <input type="hidden" id="HiddenEstado" value=@l_valueEstado />
+                                 @Html.DropDownListFor(model => model.Item.RESE_Estado, new SelectList(string.Empty, "Value", "Text"), " < Seleccione Estado > ", new { @id = "RESE_Estado", @disabled = "disabled" })
+                                 <b class="tooltip tooltip-top-right"><i class="fa fa-info-circle txt-color-teal"></i> Seleccione un estado</b>
+                              </label>
+                              <div class="note note-error" style="font-style: normal; font-size: 11px; line-height: 15px; color: #D56161;">@Html.ValidationMessage("RESE_Estado")</div>
+                           </section>
+                           <section class="col col-3">
+                              @Html.LabelFor(model => model.Item.TABL_InternoPIS, new { @class = "label" })
+                              <label class="select">
+                                 @{var l_valueTablaPIS = Model.Item.TABL_InternoPIS;}
+                                 <input type="hidden" id="HiddenCodigoTablaPIS" value=@l_valueTablaPIS />
+                                 @if (Model.Item.RESE_Estado == "A")
+                                 {@Html.DropDownListFor(model => model.Item.TABL_InternoPIS, new SelectList(string.Empty, "Value", "Text"), " < Seleccione Piso > ", new { @id = "TABL_InternoPIS" })}
+                                 else
+                                 {@Html.DropDownListFor(model => model.Item.TABL_InternoPIS, new SelectList(string.Empty, "Value", "Text"), " < Seleccione Piso > ", new { @id = "TABL_InternoPIS", @disabled = "disabled" })}
+                                 <b class="tooltip tooltip-top-right"><i class="fa fa-info-circle txt-color-teal"></i> Seleccione un piso</b>
+                              </label>
+                              <div class="note note-error" style="font-style: normal; font-size: 11px; line-height: 15px; color: #D56161;">@Html.ValidationMessage("TABL_InternoPIS")</div>
+                           </section>
+                           <section class="col col-3">
+                              @Html.LabelFor(model => model.Item.TABL_InternoTHA, new { @class = "label" })
+                              <label class="select">
+                                 @{var l_valueTablaTHA = Model.Item.TABL_InternoTHA;}
+                                 <input type="hidden" id="HiddenCodigoTablaTHA" value=@l_valueTablaTHA />
+                                 @if (Model.Item.RESE_Estado == "A")
+                                 { @Html.DropDownListFor(model => model.Item.TABL_InternoTHA, new SelectList(string.Empty, "Value", "Text"), " < Seleccione Tipo > ", new { @id = "TABL_InternoTHA" })}
+                                 else
+                                 { @Html.DropDownListFor(model => model.Item.TABL_InternoTHA, new SelectList(string.Empty, "Value", "Text"), " < Seleccione Tipo > ", new { @id = "TABL_InternoTHA", @disabled = "disabled" })}
+                                 <b class="tooltip tooltip-top-right"><i class="fa fa-info-circle txt-color-teal"></i> Seleccione un tipo de habitacion</b>
+                              </label>
+                              <div class="note note-error" style="font-style: normal; font-size: 11px; line-height: 15px; color: #D56161;">@Html.ValidationMessage("TABL_InternoTHA")</div>
+                           </section>
+                           <section class="col col-3">
+                              @Html.LabelFor(model => model.Item.HABI_Interno, new { @class = "label" })
+                              <label class="select">
+                                 @if (Model.Item.RESE_Estado == "A")
+                                 {@Html.DropDownListFor(model => model.Item.HABI_Interno, new SelectList(string.Empty, "Value", "Text"), " < Seleccione Habitacion > ", new { @id = "HABI_Interno" })}
+                                 else
+                                 {@Html.DropDownListFor(model => model.Item.HABI_Interno, new SelectList(string.Empty, "Value", "Text"), " < Seleccione Habitacion > ", new { @id = "HABI_Interno", @disabled = "disabled" })}
+                                 <b class="tooltip tooltip-top-right"><i class="fa fa-info-circle txt-color-teal"></i> Seleccione una habitacion</b>
+                              </label>
+                              <div class="note note-error" style="font-style: normal; font-size: 11px; line-height: 15px; color: #D56161;">@Html.ValidationMessage("HABI_Interno")</div>
+                           </section>
+                        </div>
+                        <div class="row">
+                           <section class="col col-4">
+                              @Html.LabelFor(model => model.Item.RESE_FechaInicio, new { @class = "label" })
+                              <label class="input">
+                                 @if (Model.Item.RESE_Estado == "A")
+                                 {@Html.EditorFor(model => model.Item.RESE_FechaInicio, new { htmlAttributes = new { @class = "", type = "date", name = "RESE_FechaInicio", autocomplete = "off" } })}
+                                 else
+                                 {@Html.EditorFor(model => model.Item.RESE_FechaInicio, new { htmlAttributes = new { @class = "", type = "date", name = "RESE_FechaInicio", autocomplete = "off", @disabled = "disabled" } })}
+                                 <b class="tooltip tooltip-top-right"><i class="fa fa-info-circle txt-color-teal"></i> Ingrese una fecha inicio</b>
+                              </label>
+                              <div class="note note-error" style="font-style: normal; font-size: 11px; line-height: 15px; color: #D56161;">@Html.ValidationMessage("RESE_FechaInicio")</div>
+                           </section>
+                           <section class="col col-4">
+                              @Html.LabelFor(model => model.Item.RESE_FechaFin, new { @class = "label" })
+                              <label class="input">
+                                 @if (Model.Item.RESE_Estado == "A")
+                                 {@Html.EditorFor(model => model.Item.RESE_FechaFin, new { htmlAttributes = new { @class = "", type = "date", name = "RESE_FechaFin", autocomplete = "off" } })}
+                                 else
+                                 {@Html.EditorFor(model => model.Item.RESE_FechaFin, new { htmlAttributes = new { @class = "", type = "date", name = "RESE_FechaFin", autocomplete = "off", @disabled = "disabled" } })}
+                                 <b class="tooltip tooltip-top-right"><i class="fa fa-info-circle txt-color-teal"></i> Ingrese una fecha fin</b>
+                              </label>
+                              <div class="note note-error" style="font-style: normal; font-size: 11px; line-height: 15px; color: #D56161;">@Html.ValidationMessage("RESE_FechaFin")</div>
+                           </section>
+                        </div>
+                     </fieldset>
+                     <header>
+                        <label>Datos Huesped</label>
+                     </header>
+                     <fieldset>
+                        <div class="row">
+                           @if (Model.Item.RESE_Estado == "A")
+                           {
+                           <section class="col col-2" style="height:57px;">
+                              @Html.LabelFor(model => model.Item.RESE_HuespedId, new { @class = "label" })
+                              <label class="input">
+                                 @Html.EditorFor(model => model.Item.RESE_HuespedId, new { htmlAttributes = new { @id = "RESE_HuespedId", @class = "", type = "text", name = "RESE_HuespedId", autocomplete = "off" } })
+                                 <b class="tooltip tooltip-top-right"><i class="fa fa-info-circle txt-color-teal"></i> Ingrese un id</b>
+                              </label>
+                              <div id="RESE_HuespedId_Clear_Div">
+                                 <button type="button" name="RESE_HuespedId_Clear" id="RESE_HuespedId_Clear" onclick="javascript:ClearHuesped()" class="btn btn-primary" style="float:right; position:relative; top:-30px; right:2px; width:28px; height:28px;">
+                                    <i class="fa fa-eraser" style="width:20px; height:20px;"></i>
+                                 </button>
+                              </div>
+                              <div class="note note-error" style="font-style: normal; font-size: 11px; line-height: 15px; color: #D56161;">@Html.ValidationMessage("RESE_HuespedId")</div>
+                           </section>
+                           }
+                           else
+                           {
+                           <section class="col col-2">
+                              @Html.LabelFor(model => model.Item.RESE_HuespedId, new { @class = "label" })
+                              <label class="input">
+                                 @Html.EditorFor(model => model.Item.RESE_HuespedId, new { htmlAttributes = new { @class = "", type = "text", name = "RESE_HuespedId", autocomplete = "off", @disabled = "disabled" } })
+                                 <b class="tooltip tooltip-top-right"><i class="fa fa-info-circle txt-color-teal"></i> Ingrese un id</b>
+                              </label>
+                              <div class="note note-error" style="font-style: normal; font-size: 11px; line-height: 15px; color: #D56161;">@Html.ValidationMessage("RESE_HuespedId")</div>
+                           </section>
+                           }
+                           <section class="col col-5">
+                              @Html.LabelFor(model => model.Item.RESE_HuespedNombreCompleto, new { @class = "label" })
+                              <label class="input">
+                                 @if (Model.Item.RESE_Estado == "A")
+                                 {@Html.EditorFor(model => model.Item.RESE_HuespedNombreCompleto, new { htmlAttributes = new { @class = "", type = "text", name = "RESE_HuespedNombreCompleto", autocomplete = "off" } })}
+                                 else
+                                 {@Html.EditorFor(model => model.Item.RESE_HuespedNombreCompleto, new { htmlAttributes = new { @class = "", type = "text", name = "RESE_HuespedNombreCompleto", autocomplete = "off", @disabled = "disabled" } })}
+                                 <b class="tooltip tooltip-top-right"><i class="fa fa-info-circle txt-color-teal"></i> Ingrese un nombre</b>
+                              </label>
+                              <div class="note note-error" style="font-style: normal; font-size: 11px; line-height: 15px; color: #D56161;">@Html.ValidationMessage("RESE_HuespedNombreCompleto")</div>
+                           </section>
+                           <section class="col col-5">
+                              @Html.LabelFor(model => model.Item.RESE_HuespedDireccion, new { @class = "label" })
+                              <label class="input">
+                                 @if (Model.Item.RESE_Estado == "A")
+                                 {@Html.EditorFor(model => model.Item.RESE_HuespedDireccion, new { htmlAttributes = new { @class = "", type = "text", name = "RESE_HuespedDireccion", autocomplete = "off" } })}
+                                 else
+                                 {@Html.EditorFor(model => model.Item.RESE_HuespedDireccion, new { htmlAttributes = new { @class = "", type = "text", name = "RESE_HuespedDireccion", autocomplete = "off", @disabled = "disabled" } })}
+                                 <b class="tooltip tooltip-top-right"><i class="fa fa-info-circle txt-color-teal"></i> Ingrese una direccion</b>
+                              </label>
+                              <div class="note note-error" style="font-style: normal; font-size: 11px; line-height: 15px; color: #D56161;">@Html.ValidationMessage("RESE_HuespedDireccion")</div>
+                           </section>
+                        </div>
+                        <section>
+                           @Html.LabelFor(model => model.Item.RESE_Descripcion, new { @class = "label" })
+                           <label class="textarea">
+                              @if (Model.Item.RESE_Estado == "A")
+                              {@Html.TextAreaFor(model => Model.Item.RESE_Descripcion, new { rows = 5, htmlAttributes = new { @class = "", name = "RESE_Descripcion" } })}
+                              else
+                              {@Html.TextAreaFor(model => Model.Item.RESE_Descripcion, new { rows = 5, htmlAttributes = new { @class = "", name = "RESE_Descripcion", @disabled = "disabled" } })}
+                              <b class="tooltip tooltip-top-right"><i class="fa fa-info-circle txt-color-teal"></i> Ingrese una descripcion</b>
+                           </label>
+                           <div class="note note-error" style="font-style: normal; font-size: 11px; line-height: 15px; color: #D56161;">@Html.ValidationMessage("RESE_Descripcion")</div>
+                        </section>
+                     </fieldset>
+                     <footer>
+                        <a href='@Url.Action("ReservacionesSearch", "Reservaciones")' class="btn btn-labeled btn-default" title="Volver" style="padding-left:10px; padding-right:10px;">
+                           <span class="btn-label" style="padding-bottom:0px; padding-top:0px;"><i class="fa fa-undo"></i></span>
+                           Volver
+                        </a>
+                        @if (Model.Item.RESE_Estado == "A")
+                        {
+                        <button type="submit" class="btn btn-labeled btn-primary" title="Guardar" style="padding-left:10px; padding-right:10px;">
+                           <span class="btn-label" style="padding-bottom:0px; padding-top:0px;"><i class="fa fa-save"></i></span>
+                           Guardar
+                        </button>
+                        }
+                     </footer>
+                                   }
+                  </div>
+
+                  <!-- end widget content -->
+
+               </div>
+               <!-- end widget div -->
+
+            </div>
+            <!-- end widget -->
+         </article>
+         <!-- END COL -->
+      </div>
+   </section>
+</div>
+
+
+@section pagespecific {
+   <script type="text/javascript">
+
+      // DO NOT REMOVE : GLOBAL FUNCTIONS!
+
+      var l_empresa;
+      var l_sucursal;
+      $(document).ready(function () {
+
+         l_empresa = @Model.Item.EMPR_Interno;
+         l_sucursal = @Model.Item.SUCU_Interno;
+
+         var l_estado = document.getElementById("HiddenEstado").value;
+         renderComboEstadoReservaciones($('#RESE_Estado'), 'Estado', l_estado);
+
+         var l_tablaPIS = document.getElementById("HiddenCodigoTablaPIS").value;
+         renderComboTablasActivas($('#TABL_InternoPIS'), 'Piso',l_empresa ,'PIS', l_tablaPIS );
+
+         var l_tablaTHA = document.getElementById("HiddenCodigoTablaTHA").value;
+         renderComboTablasActivas($('#TABL_InternoTHA'), 'Tipo', l_empresa,'THA', l_tablaTHA );
+
+         renderComboHabitaciones($('#HABI_Interno'), 'Habitacion', l_empresa, l_sucursal, @Model.Item.HABI_Interno, l_tablaPIS, l_tablaTHA)
+
+      });
+
+      $('#RESE_HuespedId').autocomplete({
+         minLength: 3,
+         source: function (request, response) {
+            $.ajax({
+               type: "GET",
+               contentType: "application/json; charset=utf-8",
+               url: "/PosadminWebApp/api/Consultas/GetHuespedAutocomplete",
+               data: { 'InternoEmpresa': l_empresa, 'Indicio' :request.term.toLowerCase() },
+               dataType: "json",
+               success: function (data) {
+                  response(data);
+               },
+               error: function (result) {}
+            });
+         },
+         select: function (event, ui) {
+            event.preventDefault();
+            $("#RESE_HuespedId").val(ui.item.label);
+            $("#ENTI_Interno").val(ui.item.value);
+
+            LoadHuesped(ui.item.value);
+
+         },
+         focus: function (event, ui) {
+            event.preventDefault();
+            $("#RESE_HuespedId").val(ui.item.label);
+         }
+      });
+
+      function LoadHuesped(Entidad) {
+         $.ajax({
+            type: "GET",
+            url: "/PosadminWebApp/api/Consultas/GetOneEntidad",
+            data: { 'InternoEmpresa': l_empresa, 'InternoEntidad': Entidad },
+            success: function (data) {
+               if (data != null) {
+                  document.getElementById('ENTI_Interno').value = data.EMPR_Interno;
+                  document.getElementById('RESE_HuespedId').value = data.ENTI_Id;
+                  document.getElementById('Item_RESE_HuespedNombreCompleto').value = data.ENTI_NombreCompleto;
+                  document.getElementById('Item_RESE_HuespedDireccion').value = data.ENTI_Direccion;
+
+                  document.getElementById('RESE_HuespedId').readOnly = true;
+
+                  document.getElementById('RESE_HuespedId_Clear_Div').style.display = 'block';
+               }
+               else {
+                  ClearManoObra();
+               }
+            }
+         });
+      };
+
+      function ClearHuesped() {
+         document.getElementById('ENTI_Interno').value = "0";
+         document.getElementById('RESE_HuespedId').value = "";
+         document.getElementById('Item_RESE_HuespedNombreCompleto').value = "";
+         document.getElementById('Item_RESE_HuespedDireccion').value = "";
+
+         document.getElementById('RESE_HuespedId').readOnly = false;
+
+         document.getElementById('RESE_HuespedId_Clear_Div').style.display = 'none';
+      };
+
+      $('#TABL_InternoPIS').change(function () {
+         LoadHabitaciones();
+      });
+      $('#TABL_InternoTHA').change(function () {
+         LoadHabitaciones();
+      });
+      function LoadHabitaciones() {
+         var l_piso = $('#TABL_InternoPIS').val();
+         var l_tipo = $('#TABL_InternoTHA').val();
+         renderComboHabitaciones($('#HABI_Interno'), 'Habitacion',l_empresa, l_sucursal, '0', l_piso, l_tipo)
+      };
+
+
+   </script>
+}
